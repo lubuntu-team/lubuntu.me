@@ -1,0 +1,83 @@
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Mooberry Show Latest Posts\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"POT-Creation-Date: 2016-01-06 06:57-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: Mooberry Dreams <mooberrydreams@mooberrydreams."
+"com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin-options.php:7
+msgid "Show Latest Posts Options"
+msgstr ""
+
+#: admin-options.php:7
+msgid "Show Latest Posts"
+msgstr ""
+
+#: admin-options.php:13
+msgid "Mooberry Show Latest Posts Options"
+msgstr ""
+
+#: admin-options.php:17
+msgid "Save Changes"
+msgstr ""
+
+#: admin-options.php:26
+msgid "Section Title"
+msgstr ""
+
+#: admin-options.php:28
+msgid "Filter By Category"
+msgstr ""
+
+#: admin-options.php:29
+msgid "Number of Posts to Display"
+msgstr ""
+
+#: admin-options.php:30
+msgid "Display the Posts"
+msgstr ""
+
+#: admin-options.php:31
+msgid "\"Read More\" Link Text"
+msgstr ""
+
+#: admin-options.php:33
+msgid "Number of words in Excerpt"
+msgstr ""
+
+#: admin-options.php:91
+msgid "Horizontally"
+msgstr ""
+
+#: admin-options.php:92
+msgid "Vertically"
+msgstr ""
+
+#: admin-options.php:124
+msgid "Latest Posts"
+msgstr ""
+
+#: admin-options.php:144
+msgid "READ MORE"
+msgstr ""

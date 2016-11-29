@@ -1,0 +1,290 @@
+ .mo_openid_help_title {
+	font-size:13px;
+	width:100%;
+	color:#1B79AE;
+	cursor:pointer;
+	font-weight: bold;
+}
+.mo_openid_help_desc {
+	font-size:13px;
+	border-left:solid 2px rgba(128, 128, 128, 0.65);
+	margin-top:10px;
+	padding-left:10px;
+}
+ .mo_openid_support_layout{
+       width: 93%;
+       background-color:#FFFFFF; 
+       border:1px solid #CCCCCC; 
+       padding-left:20px; 
+       height:409px;
+       
+}
+.mo_openid_table_layout {
+	background-color:#FFFFFF; 
+	border:1px solid #CCCCCC; 
+	padding:0px 10px 10px 10px;
+	margin-bottom: 10px;
+	height:auto;
+	min-height:400px;
+}
+
+.mo_openid_table_layout input['type=text'] {
+	width: 80%;
+}
+
+.mo_opneid_table_td_checkbox {
+	padding-left: 10px;
+}
+.mo_openid_table_textbox {
+	width:80%;
+}
+.mo_openid_table_contact {
+	width:95%;
+}
+.mo_openid_settings_table,.mo_openid_display_table {
+	width: 100%;
+}
+.mo_openid_settings_table tr td:first-child {
+	width: 30%;
+}
+
+.mo_openid_display_table tr td:first-child{
+	width: 50%;
+}
+
+.mo_openid_display_table .mo_openid_table_textbox {
+	width:70%;
+}
+.mo_openid_login_wid li{
+	margin:5px;
+	list-style-type:none;
+}
+
+.mo-openid-app-icons>a>img{
+	width:35px !important; 
+	height:35px !important;
+	margin:8px 0px;
+	display: inline !important;
+}
+
+.mo-openid-app-share-icons{
+width:35px !important; 
+height:35px !important;
+display:inline !important;
+}
+
+.mo-openid-share-link{
+	     border-bottom: 0px !important;
+		box-sizing:border-box !important;
+}
+
+.circle{
+	
+	border-radius: 999px !important;
+}
+
+
+.oval{
+border-radius: 4px !important;
+}
+
+.round{
+	
+	border-radius: 999px !important;
+}
+
+
+.roundededges{
+border-radius: 4px !important;
+}
+
+.mo-openid-app-icons>p{
+margin:0px !important;
+
+}
+
+.mo-openid-app-icons{
+	display:inline !important;
+}
+
+.theme-checkbox{
+	vertical-align :super !important;
+} 
+
+a{
+	cursor:pointer;
+	
+}
+
+.mo_openid_display_interface{
+	width:100%;
+}
+
+.mo_openid_vertical{
+	display:inline-block !important;
+	 overflow: visible;
+    z-index: 10000000;
+    padding: 10px;
+    border-radius: 4px;
+    opacity: 1;
+    -webkit-box-sizing: content-box!important;
+    -moz-box-sizing: content-box!important;
+    box-sizing: content-box!important;
+	width:40px;
+	position:fixed;
+}
+
+.btn-customtheme{
+	color:#ffffff !important;
+}
+
+ .custom-login-button{
+       text-align:center !important;
+       color:white !important;
+       padding-top:8px !important;
+	   box-sizing: border-box !important;
+}
+
+.btn-custom-dec{
+text-decoration:none !important;	
+}
+
+.mo-custom-share-icon{
+	box-sizing:border-box !important;
+}
+
+.mo_openid_help_desc {
+	font-size:13px;
+	border-left:solid 2px rgba(128, 128, 128, 0.65);
+	margin-top:10px;
+	padding-left:10px;
+}
+.mo_openid_title_panel{
+	width: 100%;
+    color: #1B79AE;
+    cursor: pointer;
+    font-weight: bold;
+	}
+	
+#TB_window, #TB_window #TB_ajaxContent {
+	width:500px!important;
+}
+
+.mo_openid_pricing_table{
+	text-align:center;
+	font-size: 15px !important;
+}
+
+.mo_openid_pricing_header{
+	color: #fff !important;
+	margin: 8px !important;
+}
+
+.mo_openid_pricing_sub_header{
+	margin: 4px !important;
+	color: #fff !important;
+}
+
+.mo_openid_pricing_text{
+	font-size: 15px !important;
+	color: #fff !important;
+	font-weight: bold !important;
+}
+
+.mo_openid_pricing_free_tab{
+	background-color: rgba(34, 153, 221, 0.82)!important;
+	//#29d
+}
+
+.mo_openid_pricing_paid_tab{
+	background-color: #1a71a4 !important;
+}
+
+.mo_openid_thumbnail {
+	width:270px;
+	padding: 4px;
+
+	margin-bottom: 10px;
+	line-height: 1.42857143;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+	-o-transition: border .2s ease-in-out;
+	transition: border .2s ease-in-out
+}
+
+.mo_openid_msgs{
+	font-size: 14px !important;
+}
+
+.mo_openid_success_container{
+	background-color: rgba(185, 228, 155, 0.56) !important;
+	margin-left: 3px !important;
+
+}
+
+.mo_openid_error_container{
+	background-color: rgba(251, 102, 0, 0.29) !important;
+	margin-left: 3px !important;
+}
+
+.mo_openid_comment_tab {
+	margin-left: 0px !important;
+	margin-bottom: 20px;
+	padding-left: 0px !important;
+}
+
+.mo_openid_comment_tab li{
+	color: grey;
+	margin-right: 5%;
+	margin-left: 0px !important;
+	list-style: none;
+	font-size: 14px;
+	cursor:pointer;
+	float: left;
+}
+
+.mo_openid_selected_tab{
+	color: black !important;
+	border-bottom: 2px solid #FF5A00;
+}
+
+.mo_openid_license_select_option{
+	display: block;
+    width:90%;
+	margin-left:5%;
+	font-size:15px!important;
+    background: #0085ba;
+	border-color: #0073aa #006799 #006799;
+	border-width: 1px;
+    border-style: solid;
+	padding-left:15%!important;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #006799;
+	text-align:center;
+    color: #fff;
+    text-decoration: none;
+	cursor:pointer;
+    text-shadow: 0 -1px 1px #006799,1px 0 1px #006799,0 1px 1px #006799,-1px 0 1px #006799;
+}
+
+.mo_openid_license_select_option:focus, .mo_openid_license_select_option:hover {
+	border-color: #0073aa #006799 #006799;
+	border-width: 1px;
+    border-style: solid;
+}
+
+.mo_openid_license_select_option option {
+    text-align:center;	
+}
+
+#mobileshow { 
+	display:none; 
+}
+
+@media screen and (max-width: 600px) {
+	#mobileshow { 
+		display:block; 
+	}
+}

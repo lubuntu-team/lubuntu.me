@@ -1,0 +1,251 @@
+/* Template-specific stuff
+ *
+ * Customizations just for the template; these are not necessary for anything
+ * with disabling the responsiveness.
+ */
+
+/* Account for fixed navbar */
+body {
+  min-width: 1200px;
+}
+
+/* Finesse the page header spacing */
+.page-header {
+  margin-bottom: 30px;
+}
+.page-header .lead {
+  margin-bottom: 10px;
+}
+
+
+/* Non-responsive overrides
+ *
+ * Utilitze the following CSS to disable the responsive-ness of the container,
+ * grid system, and navbar.
+ */
+
+/* Reset the container */
+.container {
+  width: 1200px;
+  max-width: none !important;
+}
+
+/* Demonstrate the grids */
+.col-xs-4 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #eee;
+  background-color: rgba(86,61,124,.15);
+  border: 1px solid #ddd;
+  border: 1px solid rgba(86,61,124,.2);
+}
+
+.container .navbar-header,
+.container .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Always float the navbar header */
+.navbar-header {
+  float: left;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+
+.navbar-toggle {
+  display: none;
+}
+.navbar-collapse {
+  border-top: 0;
+}
+
+.navbar-brand {
+  margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+.navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-nav > li {
+  float: left;
+}
+.navbar-nav > li > a {
+  padding: 15px;
+}
+
+/* Redeclare since we override the float above */
+.navbar-nav.navbar-right {
+  float: right;
+}
+
+/* Undo custom dropdowns */
+.navbar .navbar-nav .open .dropdown-menu {
+  position: absolute;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-width: 0 1px 1px;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #333;
+}
+.navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar .navbar-nav .open .dropdown-menu > .active > a,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #fff !important;
+  background-color: #428bca !important;
+}
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  color: #999 !important;
+  background-color: transparent !important;
+}
+
+#smuzform-cont {
+	background-color: #fff;
+}
+
+.row {
+	width: 91.8%;
+	margin: 25px;
+}
+
+.contInfoCard {
+  background-color: #fff;
+	height: 240px;
+	border-radius: 50%;
+	text-align: center;
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4);
+}
+
+.contInfoInlineCont {
+	position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+.entryCountCard { 
+    position: relative;
+    left: 400px;
+}
+
+#entriesCountHeading {
+  color: green;
+  font-size: 60px;
+}
+
+#entryDataTable {
+  width: 100% !important;
+}
+
+#entryDataTable thead tr th {
+  font-size: 20px;
+  background-color: #32373c;
+  color: #fff;
+  padding: 10px;
+  width: 200px !important;
+}
+
+#entryDataTable tbody tr td {
+
+  font-size: 14.4px;
+  padding: 5px;
+  width: 200px !important;
+  max-width: 200px;
+}
+
+
+#entryDataTable_wrapper {
+  width: 90%;
+}
+
+.dt-buttons.btn-group { display: inline; }
+.col-sm-6 .dataTables_filter { display: none; }
+#entryDataTable_length { top: 10px;
+    left: -40px; position: relative; }
+
+.dt-buttons.btn-group .btn-default {
+   color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.dt-buttons.btn-group .btn-default:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+
+}
+
+table{
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  border-collapse: collapse;
+  table-layout: fixed; 
+  word-wrap:break-word;
+}
+
+.entryEditorMainRow {
+  width: 83% !important;
+}
+
+.fieldDataEntryEditor {
+  width: 60%;
+  font-size: 13px;
+  margin: 25px;
+}
+
+.fieldDataEntryEditor .fieldLabel {
+    box-shadow: 0px 0px 3px 0px rgba(119, 119, 119, 0.5);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(119, 119, 119, 0.5);
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(119, 119, 119, 0.5);
+    padding: 10px;
+    background: #bbdefb;
+    color: #000;
+    margin-bottom: 0px;
+}
+
+.fieldDataEntryEditor .fieldValue {
+  background: #f9f9f9;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.fieldDataEntryEditor .fieldLabel strong{
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.InfoContEntryEditor {
+  width: 30%;
+}
+
+@media print {
+  #adminmenumain { display: none; }
+  #formInfoContEntryEditor { display: none; }
+  .navBarActionsLi { display: none; }
+  .InfoContEntryEditor,.fieldDataEntryEditor{ clear: both !important; float: left !important; }
+  .fieldDataEntryEditor {
+    width: 100%;
+    font-size: 13px;
+    margin: 0px;
+  }
+  #smuzform-cont{ border: 0px; margin: 0px; }
+}
