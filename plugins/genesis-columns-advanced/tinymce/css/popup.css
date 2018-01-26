@@ -1,0 +1,330 @@
+/* # Styling for the Advanced Layouts TinyMCE popup
+
+Plugin: Genesis Columns Advanced
+Author: Nick Diego
+Link: http://www.nickdiego.com/plugins/genesis-columns-advanced
+*/
+
+
+/* # General Popup Styling
+---------------------------------------------------------------------------------------------------- */
+
+/* ## Popup Backdrop + Containers
+-------------------------------------------------------------- */
+
+#gca_popup_backdrop {
+	background: #000;
+	display: none;
+	min-height: 360px;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100100;
+}
+
+#gca_popup_wrap {
+	background-color: #fff;
+	-webkit-box-shadow: 0 3px 6px rgba( 0, 0, 0, 0.3 );
+	box-shadow: 0 3px 6px rgba( 0, 0, 0, 0.3 );
+	display: none;
+    margin-top: -265px;
+	margin-left: -320px;
+	overflow: hidden;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transition: height 0.2s, margin-top 0.2s;
+	transition: height 0.2s, margin-top 0.2s;
+	width: 640px;
+	height: 530px;
+	z-index: 100105;
+}
+
+#gca_popup_form {
+	max-height: 100%;
+	overflow: auto;
+}
+
+#gca_popup_content_wrap {
+	margin-top: 36px;
+	padding: 16px 16px 55px;
+}
+
+
+/* ## Popup Title/Close
+-------------------------------------------------------------- */
+
+#gca_popup_title {
+	background: #fcfcfc;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: 600;
+	height: 36px;
+    left: 0;
+    right: 0;
+	line-height: 36px;
+	margin: 0;
+	padding: 0 36px 0 16px;
+	position: absolute;
+}
+
+#gca_popup_close {
+	background: none;
+	border: none;
+	color: #666;
+	cursor: pointer;
+	padding: 0;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	right: 0;
+	width: 36px;
+	height: 36px;
+}
+
+#gca_popup_close:before {
+	content: "\f158";
+	font: normal 20px/36px dashicons;
+	speak: none;
+	width: 36px;
+	height: 36px;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#gca_popup_close:hover,
+#gca_popup_close:focus {
+	box-shadow: none;
+	color: #00a0d2;
+}
+
+
+/* ## Popup Footer
+-------------------------------------------------------------- */
+
+#gca_popup_footer {
+    background: #fcfcfc;
+    border-top: 1px solid #ddd;
+    padding: 8px 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#gca_popup_insert {
+	float: right;
+}
+
+#gca_popup_cancel {
+	float: left;
+}
+
+#gca_popup_reset {
+	float: left;
+	margin-left: 5px;
+}
+
+
+/* # Popup Content
+---------------------------------------------------------------------------------------------------- */
+
+/* ## Column Layout Styles
+-------------------------------------------------------------- */
+
+.gca-column-layouts-container .description {
+	color: #666;
+	line-height: 28px;
+    padding-left: 5px;
+}
+
+.gca-column-layouts-container input[type=radio]:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#gca_toggle_titles {
+	color: #0073aa;
+	text-decoration: underline;
+	font-size: 13px;
+	line-height: 28px;
+	display: inline-block;
+	float: right;
+}
+
+#gca_toggle_titles:focus {
+	outline: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.gca-column-layouts {
+	border: 1px solid #dfdfdf;
+	height: 190px;	
+	line-height: 0;
+	margin-top: 16px;
+	overflow: auto;	
+	padding: 6px 2px 2px 6px;
+}
+
+.gca-column-layouts input {
+	display: none;
+	text-align: center;
+}
+
+.gca-column-layouts .layout {
+	border: 3px solid transparent;
+	display: block;
+	float: left;
+	margin: 0 2px 2px 0;
+	text-align: center;
+	background-color: #fff;
+	padding: 3px;
+	cursor:	pointer;
+}
+
+.gca-column-layouts .layout:hover {
+	border: 3px solid #ddd;
+}
+
+.gca-column-layouts .layout.selected {
+	border: 3px solid #ffb900;
+}
+
+.gca-column-layouts .layout-title {
+    display: none;
+    font-size: 12px;
+    line-height: 1.5em;
+    max-width: 85px;
+    padding-top: 5px;
+    text-align: center;
+    white-space: normal;
+}
+
+.gca-column-layouts .show-title {
+	display: inline-block !important;
+}
+
+
+/* Column Class Styles
+-------------------------------------------------------------- */
+
+.gca-column-classes-container {
+	margin-top: 25px;
+}
+
+.gca-column-classes-container .description {
+    color: #666;
+	display: inline-block;
+	margin-bottom: 16px;
+}
+
+.gca-column-classes {
+	overflow: hidden;
+}
+
+.gca-column-classes label {
+	display: block;
+	width: 48%;
+	margin-bottom: 8px;
+}
+
+.gca-column-classes label:nth-child(2n) {
+	float: right;
+	text-align: right;
+}
+
+.gca-column-classes label:nth-child(2n+1) {
+	float: left;
+}
+
+.gca-column-classes span {
+	display: inline-block;
+	width: 95px;
+	text-align: right;
+	margin-right: 8px;
+	max-width: 36%;
+}
+
+.gca-column-classes input {
+	width: 64%;
+}
+
+.gca-column-classes.two-columns .column-three,
+.gca-column-classes.two-columns .column-four,
+.gca-column-classes.two-columns .column-five,
+.gca-column-classes.two-columns .column-six {
+	color: #aaaaaa;
+}
+
+.gca-column-classes.three-columns .column-four,
+.gca-column-classes.three-columns .column-five,
+.gca-column-classes.three-columns .column-six {
+	color: #aaaaaa;
+}
+
+.gca-column-classes.four-columns .column-five,
+.gca-column-classes.four-columns .column-six {
+	color: #aaaaaa;
+}
+
+.gca-column-classes.five-columns .column-six {
+	color: #aaaaaa;
+}
+
+
+/* # Media Queries
+---------------------------------------------------------------------------------------------------- */
+
+@media screen and ( max-width: 782px ) {
+	#gca_popup_wrap {
+		/*margin-top: -140px;*/
+	}
+}
+
+@media screen and ( max-width: 660px ) {
+	#gca_popup_wrap {
+		width: auto;
+		margin-left: 0;
+		left: 10px;
+		right: 10px;
+		max-width: 640px;
+	}
+	
+	.gca-column-classes label {
+		float: left;
+		width: 100%;
+		text-align: left !important;
+	}
+}
+
+@media screen and ( max-height: 550px ) {
+	#gca_popup_wrap {
+		-webkit-transition: none;
+		transition: none;
+		height: auto;
+		margin-top: 0;
+		top: 10px;
+		bottom: 10px;
+	}
+}
+
+@media screen and ( max-width: 450px ) {
+	#gca_toggle_titles {
+		display: none;
+	}
+}
+
+@media screen and ( max-height: 290px ) {
+	#gca_popup_wrap {
+		height: auto;
+		margin-top: 0;
+		top: 10px;
+		bottom: 10px;
+	}
+}

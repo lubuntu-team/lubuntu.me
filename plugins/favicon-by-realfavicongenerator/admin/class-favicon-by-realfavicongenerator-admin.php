@@ -1,7 +1,8 @@
 <?php
-// Copyright 2014 RealFaviconGenerator
+// Copyright 2014-2016 RealFaviconGenerator
 
-require_once plugin_dir_path( __FILE__ ) . '../public/class-favicon-by-realfavicongenerator-common.php';
+require_once plugin_dir_path( __FILE__ ) . '..' . DIRECTORY_SEPARATOR .
+	'public' . DIRECTORY_SEPARATOR . 'class-favicon-by-realfavicongenerator-common.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-favicon-by-realfavicongenerator-api-response.php';
 
 class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenerator_Common {
@@ -74,12 +75,12 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 	}
 
 	public function create_favicon_settings_menu() {
-		add_theme_page( __( 'Favicon', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ), 
-			__( 'Favicon', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ), 'manage_options', __FILE__ . 'favicon_appearance_menu', 
+		add_theme_page( __( 'Favicon', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ),
+			__( 'Favicon', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ), 'manage_options', __FILE__ . 'favicon_appearance_menu',
 			array( $this, 'create_favicon_appearance_page' ) );
 
-		add_options_page( __( 'Favicon Settings', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ), 
-			__( 'Favicon', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ), 'manage_options', __FILE__ . 'favicon_settings_menu', 
+		add_options_page( __( 'Favicon Settings', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ),
+			__( 'Favicon', Favicon_By_RealFaviconGenerator_Common::PLUGIN_SLUG ), 'manage_options', __FILE__ . 'favicon_settings_menu',
 			array( $this, 'create_favicon_settings_page' ) );
 	}
 
@@ -95,7 +96,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 			Favicon_By_RealFaviconGenerator_Common::META_NO_UPDATE_NOTICE );
 
 		// Template time!
-		include_once( plugin_dir_path(__FILE__) . 'views/settings.php' );		
+		include_once( plugin_dir_path(__FILE__) . 'views' . DIRECTORY_SEPARATOR . 'settings.php' );
 	}
 
 	public function create_favicon_appearance_page() {
@@ -135,10 +136,13 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		wp_enqueue_script( 'jquery-ui' );
 		wp_enqueue_script( 'jquery-effects-pulsate' );
 		wp_enqueue_media();
-		wp_enqueue_style( 'fbrfg_admin_style', plugins_url( 'assets/css/admin.css', __FILE__ ) );
+		wp_enqueue_style( 'fbrfg_admin_style', plugins_url(
+			'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'admin.css',
+			__FILE__ ) );
 
 		// Template time!
-		include_once( plugin_dir_path(__FILE__) . 'views/appearance.php' );
+		include_once( plugin_dir_path(__FILE__) . 'views' . DIRECTORY_SEPARATOR .
+			'appearance.php' );
 	}
 
 	private function download_result_json( $url ) {
@@ -191,7 +195,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 				Favicon_By_RealFaviconGenerator_Common::remove_directory( $zip_path );
 
 				update_option( Favicon_By_RealFaviconGenerator_Common::OPTION_HTML_CODE, $response->getHtmlCode() );
-				
+
 				$this->set_favicon_configured( true, $response->isFilesInRoot(), $response->getVersion(), $response->getNonInteractiveAPIRequest() );
 ?>
 {
@@ -243,7 +247,8 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		if ( ! $preview_file_name ) {
 			$preview_file_name = $this->get_preview_file_name();
 		}
-		return $this->get_picture_dir() . 'preview/' . $preview_file_name;
+		return $this->get_picture_dir() . 'preview' . DIRECTORY_SEPARATOR .
+			$preview_file_name;
 	}
 
 	public function get_preview_url( $preview_file_name = NULL ) {
@@ -273,7 +278,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 			mkdir( dirname( $this->get_preview_path( $preview_file_name ) ), 0755 );
 		}
 
-		rename( $preview_path, $this->get_preview_path( $preview_file_name ) );
+		$this->portable_rename( $preview_path, $this->get_preview_path( $preview_file_name ) );
 
 		$this->set_preview_file_name( $preview_file_name );
 	}
@@ -291,7 +296,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		$files = glob( $rfg_response->getProductionPackagePath() . '/*' );
 		foreach( $files as $file ) {
 			if ( is_file( $file ) ) {
-			    rename( $file, $working_dir . basename( $file ) );
+			  $this->portable_rename( $file, $working_dir . basename( $file ) );
 			}
 		}
 
@@ -305,10 +310,10 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 	}
 
 	public function rewrite_pictures_url( $pic_dir ) {
-		foreach ( scandir($pic_dir) as $file ) {
-			if ( ! is_dir( $pic_dir . '/' . $file ) ) {
-				add_rewrite_rule( str_replace( '.', '\.', $file ), 
-					trim( $this->get_picture_path(), '/') . '/' . $file );
+		foreach ( scandir( $pic_dir ) as $file ) {
+			if ( ! is_dir( $pic_dir . DIRECTORY_SEPARATOR . $file ) ) {
+				add_rewrite_rule( str_replace( '.', '\.', $file ),
+					trim( $this->get_picture_path(), '/' ) . '/' . $file );
 			}
 		}
 	}
@@ -327,7 +332,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		}
 
 		// See http://wordpress.org/support/topic/fbrfg-not-updating-htaccess-rewrite-rules
-		$htaccess = get_home_path() . '/.htaccess';
+		$htaccess = get_home_path() . DIRECTORY_SEPARATOR . '.htaccess';
 		// Two cases:
 		//   - There is no .htaccess. Either we are not using Apache (so the Rewrite API is supposed to handle
 		//     the rewriting differently) or there is a problem with Apache/WordPress config, but this is not our job.
@@ -383,10 +388,10 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 			return false;
 		}
 
-		// If, for some reasons, the current version matches the "latest update", 
+		// If, for some reasons, the current version matches the "latest update",
 		// then the updated was already done.
 		$result = ( $this->get_latest_manual_available_update() != $this->get_favicon_current_version() );
-		$this->log_info( 'Compare current version (' . $this->get_favicon_current_version() . ') and latest update (' . 
+		$this->log_info( 'Compare current version (' . $this->get_favicon_current_version() . ') and latest update (' .
 			$this->get_latest_manual_available_update() . '): ' . ( $result ? 'true' : 'false' ) );
 
 		return $result;
@@ -437,7 +442,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 	<?php echo $description ?>
 
 	<p>
-		<?php printf( __( 'You might want to <a href="%s">generate your favicon again</a>', 
+		<?php printf( __( 'You might want to <a href="%s">generate your favicon again</a>',
 			FBRFG_PLUGIN_SLUG ), admin_url( 'themes.php?page=' . __FILE__ . 'favicon_appearance_menu') ) ?>
 	</p>
 
@@ -482,30 +487,30 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 	    global $current_user;
         $user_id = $current_user->ID;
 
-        if ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_NOTIICATION] ) && 
+        if ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_NOTIICATION] ) &&
         		'0' == $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_NOTIICATION] ) {
         	$this->log_info( 'Disable manual update notice for ' . $this->get_latest_version_available() );
             $this->set_boolean_user_option( Favicon_By_RealFaviconGenerator_Common::META_NO_UPDATE_NOTICE_FOR_VERSION . $this->get_latest_version_available(), true );
 	    }
 
-        if ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_AUTOMATIC_UPDATE_NOTIICATION] ) && 
+        if ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_AUTOMATIC_UPDATE_NOTIICATION] ) &&
         		'0' == $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_AUTOMATIC_UPDATE_NOTIICATION] ) {
         	$versions = $this->get_most_recent_automatic_update();
         	$this->log_info( 'Disable automatic update notice for ' . $versions[0] . '-' . $versions[1] );
-            $this->set_boolean_user_option( Favicon_By_RealFaviconGenerator_Common::META_NO_AUTOMATIC_UPDATE_NOTICE_FOR_VERSION . 
+            $this->set_boolean_user_option( Favicon_By_RealFaviconGenerator_Common::META_NO_AUTOMATIC_UPDATE_NOTICE_FOR_VERSION .
              	$versions[0] . '_' . $versions[1], true );
 	    }
 
 	    $no_notices = NULL;
-        if ( ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS] ) && 
+        if ( ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS] ) &&
         		'0' == $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS] ) ) {
         	// The "no more notifications" link was clicked in the notification itself
 		    $no_notices = true;
         }
-        if ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::SETTINGS_FORM] ) && 
+        if ( isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::SETTINGS_FORM] ) &&
         		'1' == $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::SETTINGS_FORM] ) {
         	// The settings form was validated
-        	$no_notices = ( ! isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS] ) || 
+        	$no_notices = ( ! isset( $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS] ) ||
         		( '0' == $_REQUEST[Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS] ) );
 	    }
 		if ( $no_notices !== NULL ) {

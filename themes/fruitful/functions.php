@@ -39,6 +39,12 @@ if ( ! function_exists( 'fruitful_setup' ) ):
  * @since Fruitful theme 1.0
  */
 
+/* 
+*Elementor Partner ID 
+*/
+ if ( ! defined( 'ELEMENTOR_PARTNER_ID' ) ) { 
+define( 'ELEMENTOR_PARTNER_ID', 2120 ); 
+}
 
  /**
  * Implement the Custom Header feature
@@ -139,9 +145,10 @@ function fruitful_setup() {
 	
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 604, 270, true );
+	add_image_size( 'full-post-thumbnails', 900, 400, true );
 	add_image_size( 'slider-thumb', 608, 300, true );
 	add_image_size( 'main-slider', 1920, 900, true );
-	
+
 	add_editor_style( array( 'css/editor-style.css', 'fonts/genericons.css', fruitful_fonts_url() ) );
 	
 	$defaults = array(
@@ -174,6 +181,24 @@ function fruitful_wp_title( $title, $sep ) {
 	return $title;
 }
 	add_filter( 'wp_title', 'fruitful_wp_title', 10, 2 );
+}
+//Change thumbnail size by parameter sidebar
+if ( ! function_exists( 'fruitful_thumbnail_size' ) ) {
+	function fruitful_thumbnail_size( $html, $post_id, $post_thumbnail_id, $size ) {
+		//if ($size != 'post-thumbnails') return $html;
+
+		$options = fruitful_get_theme_options();
+		if ((empty($options['layout_page_templ']) && is_page() )||
+			(empty($options['layout_single_templ']) && is_single()) ||
+			(empty($options['layout_tag_templ']) && is_archive()) ||
+			(empty($options['layout_cat_templ']) && is_archive()) ||
+			(empty($options['layout_archive_templ']) && is_archive())) {
+			$src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), "full-post-thumbnails" );
+			$html = '<img class="attachment-post-thumbnail wp-post-image" src="'.$src[0].'"/>';
+		}
+		return $html;
+	}
+	add_filter( 'post_thumbnail_html', 'fruitful_thumbnail_size', 0, 5 );
 }
 
 /**
@@ -542,21 +567,24 @@ if (!function_exists('fruitful_get_slider')) {
 								$slider_ .= '<div class= "flexslider" id="' . $id . '">';
 									$slider_ .= '<ul class="slides">';
 									foreach ($theme_options['slides'] as $key=>$slide) {
-										$val = wp_get_attachment_image_src( esc_attr($slide['attach_id']), 'main-slider');
-										$path_to_img = esc_url_raw($val[0]);
-										$slider_ .= '<li>';
-											if (!empty($slide['link'])) {
-												if (!empty($slide['is_blank'])) {
-													$slider_ .= '<a href="'.esc_url($slide['link']).'" target="_blank">';
+										if ( $slide['is_active'] == 'on' ) //ERICH is_active
+                                                                		{
+											$val = wp_get_attachment_image_src( esc_attr($slide['attach_id']), 'main-slider');
+											$path_to_img = esc_url_raw($val[0]);
+											$slider_ .= '<li>';
+												if (!empty($slide['link'])) {
+													if (!empty($slide['is_blank'])) {
+														$slider_ .= '<a href="'.esc_url($slide['link']).'" target="_blank">';
+													} else {
+														$slider_ .= '<a href="'.esc_url($slide['link']).'">';
+													}	
+														$slider_ .= '<img src="'.$path_to_img.'" />';
+													$slider_ .= '</a>';	
 												} else {
-													$slider_ .= '<a href="'.esc_url($slide['link']).'">';
-												}	
 													$slider_ .= '<img src="'.$path_to_img.'" />';
-												$slider_ .= '</a>';	
-											} else {
-												$slider_ .= '<img src="'.$path_to_img.'" />';
-											}
-										$slider_ .= '</li>';
+												}
+											$slider_ .= '</li>';
+										}
 									}
 									$slider_ .= '</ul></div></section></div>';
 									
@@ -570,18 +598,21 @@ if (!function_exists('fruitful_get_slider')) {
 						
 							$slider_ .= '<div id="nivo-slider-'. $id . '" class="nivoSlider">';
 							foreach ($theme_options['slides'] as $key=>$slide) {
-								$val = wp_get_attachment_image_src( esc_attr($slide['attach_id']), 'main-slider');
-								$path_to_img = esc_url_raw($val[0]);
-								if (!empty($slide['link'])) {
-									if (!empty($slide['is_blank'])) {
-										$slider_ .= '<a href="'.esc_url($slide['link']).'" target="_blank">';
+								if ( $slide['is_active'] == 'on' ) //ERICH is_active
+                                                                {
+									$val = wp_get_attachment_image_src( esc_attr($slide['attach_id']), 'main-slider');
+									$path_to_img = esc_url_raw($val[0]);
+									if (!empty($slide['link'])) {
+										if (!empty($slide['is_blank'])) {
+											$slider_ .= '<a href="'.esc_url($slide['link']).'" target="_blank">';
+										} else {
+											$slider_ .= '<a href="'.esc_url($slide['link']).'">';
+										}	
+											$slider_ .= '<img src="'. $path_to_img .'" data-thumb="'. $path_to_img .'" alt="" />';
+										$slider_ .= '</a>';	
 									} else {
-										$slider_ .= '<a href="'.esc_url($slide['link']).'">';
-									}	
 										$slider_ .= '<img src="'. $path_to_img .'" data-thumb="'. $path_to_img .'" alt="" />';
-									$slider_ .= '</a>';	
-								} else {
-									$slider_ .= '<img src="'. $path_to_img .'" data-thumb="'. $path_to_img .'" alt="" />';
+									}
 								}
 							}	
 							$slider_ .= '</div>';
@@ -662,7 +693,7 @@ if (!function_exists('fruitful_get_favicon')) {
 		$url_favicon = $fav_icon_iphone = $fav_icon_iphone_retina = $fav_icon_ipad = $fav_icon_ipad_retina = null;
 		$theme_options  = fruitful_get_theme_options();
 		
-		if (isset($theme_options['fav_icon'])) {
+		if (!empty($theme_options['fav_icon'])) {
 			$fav_icon_url = esc_attr($theme_options['fav_icon']);
 			$fav_icon_id = wp_get_attachment_image_src($fav_icon_url, 'full');
 			 if (!empty($fav_icon_id)) {
@@ -676,7 +707,7 @@ if (!function_exists('fruitful_get_favicon')) {
 			$out_fav_html .=  '<link rel="apple-touch-icon-precomposed" sizes="16x16" href="'. $image_link .'">';	
 		} 	
 		
-		if (isset($theme_options['fav_icon_iphone'])) {
+		if (!empty($theme_options['fav_icon_iphone'])) {
 			$fav_icon_iphone_url = esc_attr($theme_options['fav_icon_iphone']);
 			$fav_icon_iphone_id = wp_get_attachment_image_src($fav_icon_iphone_url, 'full');
 			 if (!empty($fav_icon_iphone_id)) {
@@ -689,7 +720,7 @@ if (!function_exists('fruitful_get_favicon')) {
 			$out_fav_html .= '<link rel="apple-touch-icon" 	href="' .esc_url($image_link) .'">';
 		}
 		
-		if (isset($theme_options['fav_icon_iphone_retina'])) {
+		if (!empty($theme_options['fav_icon_iphone_retina'])) {
 			$fav_icon_iphone_retina_url = esc_attr($theme_options['fav_icon_iphone_retina']);
 			$fav_icon_iphone_retina_id = wp_get_attachment_image_src($fav_icon_iphone_retina_url, 'full');
 			 if (!empty($fav_icon_iphone_retina_id)) {
@@ -702,7 +733,7 @@ if (!function_exists('fruitful_get_favicon')) {
 			$out_fav_html .= '<link rel="apple-touch-icon" sizes="114x114" 	href="'. esc_url($image_link) .' ">';
 		}
 		
-		if (isset($theme_options['fav_icon_ipad'])) {
+		if (!empty($theme_options['fav_icon_ipad'])) {
 			$fav_icon_ipad_url = esc_attr($theme_options['fav_icon_ipad']);
 			$fav_icon_ipad_id = wp_get_attachment_image_src($fav_icon_ipad_url, 'full');
 			 if (!empty($fav_icon_ipad_id)) {
@@ -715,7 +746,7 @@ if (!function_exists('fruitful_get_favicon')) {
 			$out_fav_html .= '<link rel="apple-touch-icon" sizes="72x72" 	href="'. esc_url($image_link) .'">'; 
 		}
 		
-		if (isset($theme_options['fav_icon_ipad_retina'])) {
+		if (!empty($theme_options['fav_icon_ipad_retina'])) {
 			$fav_icon_ipad_retina_url = esc_attr($theme_options['fav_icon_ipad_retina']);
 			$fav_icon_ipad_retina_id = wp_get_attachment_image_src($fav_icon_ipad_retina_url, 'full');
 			 if (!empty($fav_icon_ipad_retina_id)) {
@@ -788,7 +819,8 @@ if (!function_exists('fruitful_get_socials_icon')) {
 		if(!empty($theme_options['github_link'])) 		{ $out .= '<a class="github" 	 title="github"		href="'	.	esc_url($theme_options['github_link']) 		. '" target="_blank"><i class="fa"></i></a>'; }			
 		if(!empty($theme_options['tumblr_link'])) 		{ $out .= '<a class="tumblr" 	 title="tumblr"		href="'	.	esc_url($theme_options['tumblr_link']) 		. '" target="_blank"><i class="fa"></i></a>'; }			
 		if(!empty($theme_options['soundcloud_link'])) 	{ $out .= '<a class="soundcloud" title="soundcloud" href="'	.	esc_url($theme_options['soundcloud_link']) 	. '" target="_blank"><i class="fa"></i></a>'; }		
-		if(!empty($theme_options['tripadvisor_link'])) 	{ $out .= '<a class="tripadvisor" title="tripadvisor" href="'	.	esc_url($theme_options['tripadvisor_link']) 	. '" target="_blank"><i class="fa"></i></a>'; }			
+		if(!empty($theme_options['tripadvisor_link'])) 	{ $out .= '<a class="tripadvisor" title="tripadvisor" href="'	.	esc_url($theme_options['tripadvisor_link']) 	. '" target="_blank"><i class="fa"></i></a>'; }	
+		if(!empty($theme_options['ello_link'])) 	{ $out .= '<a class="ello" title="ello" href="'	.	esc_url($theme_options['ello_link']) 	. '" target="_blank"></a>'; }			
 		
 		echo '<div class="social-icon">' . $out . '</div>';
 	}
@@ -1097,10 +1129,10 @@ if ( ! function_exists( 'fruitful_get_responsive_style' ) ) {
 				if (!empty($theme_options['btn_color'])) {
 					$btn_color = esc_attr($theme_options['btn_color']);
 					
-					$style_		 .= 'button, input[type="button"], input[type="submit"], input[type="reset"]{background-color : '.$btn_color.' !important; } ';
+					$style_		 .= 'button, input[type="button"], input[type="submit"], input[type="reset"], .wc-proceed-to-checkout a{background-color : '.$btn_color.' !important; } ';
 					$style_		 .= 'body a.btn.btn-primary, body button.btn.btn-primary, body input[type="button"].btn.btn-primary , body input[type="submit"].btn.btn-primary {background-color : '.$btn_color.' !important; }';
 					$woo_style_  .= '.woocommerce table.my_account_orders .order-actions .button, .woocommerce-page table.my_account_orders .order-actions .button{background-color : '.$btn_color.' !important; }';
-					$style_ 	 .= '.nav-links.shop .pages-links .page-numbers, .nav-links.shop .nav-next a, .nav-links.shop .nav-previous a{background-color : '.$btn_color.' !important; }';
+					$style_ 	 .= '.nav-links.shop .pages-links .page-numbers, .nav-links.shop .nav-next a, .nav-links.shop .nav-previous a, .woocommerce .return-to-shop .button {background-color : '.$btn_color.' !important; }';
 				}
 				
 				if (!empty($theme_options['btn_active_color'])) {
@@ -1108,11 +1140,11 @@ if ( ! function_exists( 'fruitful_get_responsive_style' ) ) {
 					
 					$style_ .= 'button:hover, button:active, button:focus{background-color : '.$btn_active_color.' !important; }';
 					$style_ .= 'input[type="button"]:hover, input[type="button"]:active, input[type="button"]:focus{background-color : '.$btn_active_color.' !important; }';
-					$style_ .= 'input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus{background-color : '.$btn_active_color.' !important; }';
+					$style_ .= 'input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus, .wc-proceed-to-checkout a:focus, .wc-proceed-to-checkout a:hover, .wc-proceed-to-checkout a:active{background-color : '.$btn_active_color.' !important; }';
 					$style_ .= 'input[type="reset"]:hover, input[type="reset"]:active, input[type="reset"]:focus{background-color : '.$btn_active_color.' !important; }';
 					$style_	.= 'body a.btn.btn-primary:hover, body button.btn.btn-primary:hover, body input[type="button"].btn.btn-primary:hover , body input[type="submit"].btn.btn-primary:hover {background-color : '.$btn_active_color.' !important; }';
 					$woo_style_  .= '.woocommerce table.my_account_orders .order-actions .button:hover, .woocommerce-page table.my_account_orders .order-actions .button:hover{background-color : '.$btn_active_color.' !important; }';
-					$style_ .= '.nav-links.shop .pages-links .page-numbers:hover, .nav-links.shop .nav-next a:hover, .nav-links.shop .nav-previous a:hover, .nav-links.shop .pages-links .page-numbers.current{background-color : '.$btn_active_color.' !important; }';
+					$style_ .= '.nav-links.shop .pages-links .page-numbers:hover, .nav-links.shop .nav-next a:hover, .nav-links.shop .nav-previous a:hover, .nav-links.shop .pages-links .page-numbers.current, .woocommerce .return-to-shop .button:hover {background-color : '.$btn_active_color.' !important; }';
 				}
 				
 				/*social icons styles*/
@@ -1382,7 +1414,7 @@ if (class_exists('Woocommerce')) {
 			$woocommerce_loop['columns'] 	= apply_filters( 'woocommerce_cross_sells_columns', 4 );
 			if ( $products->have_posts() ) : ?>
 				<div class="cross-sells">
-					<h2><?php _e( 'You may be interested in&hellip;', 'woocommerce' ) ?></h2>
+					<h2><?php _e( 'You may be interested in&hellip;', 'fruitful' ) ?></h2>
 					<?php woocommerce_product_loop_start(); ?>
 						<?php while ( $products->have_posts() ) : $products->the_post(); ?>
 							<?php woocommerce_get_template_part( 'content', 'product' ); ?>
@@ -1519,9 +1551,15 @@ if ( ! function_exists( 'fruitful_metadevice' ) ) {
 		if ($browser_an		== true) { $browser = 'android'; } 	 
 		if ($browser_ipad 	== true) { $browser = 'ipad'; }
 
-		if($browser == 'iphone') 	{ echo '<meta name="viewport" content="width=480, maximum-scale=1, user-scalable=0"/>';  } 
-		if($browser == 'android') 	{ echo '<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width" />'; } 
-		if($browser == 'ipad') 		{ echo '<meta name="viewport" content="width=768px, minimum-scale=1.0, maximum-scale=1.0" />'; } 
+        if ($browser == 'iphone') {
+            echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />';
+        } elseif ($browser == 'android') {
+            echo '<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width" />';
+        } elseif ($browser == 'ipad') {
+            echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />';
+        } else {
+            echo '<meta name="viewport" content="width=device-width" />';
+        }
 	}
 }
 add_action( 'wp_head', 'fruitful_metadevice' );
@@ -1646,8 +1684,8 @@ if ( ! function_exists( 'fruitful_get_product_search_form' ) ) {
 		?>
 		<form role="search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/'  ) ); ?>">
 			<div>
-				<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="<?php _e( 'Search for products', 'woocommerce' ); ?>" />
-				<input type="submit" id="searchsubmit" value="<?php echo esc_attr__( 'Search', 'woocommerce' ); ?>" />
+				<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="<?php _e( 'Search for products', 'fruitful' ); ?>" />
+				<input type="submit" id="searchsubmit" value="<?php echo esc_attr__( 'Search', 'fruitful' ); ?>" />
 				<input type="hidden" name="post_type" value="product" />
 			</div>
 		</form>
@@ -2006,4 +2044,33 @@ if (class_exists('Woocommerce')) {
 	}
 
 	add_action(	'wp_enqueue_scripts', 'fruitful_init_woo_styles', 100);
+}
+
+add_action( 'after_setup_theme', 'wpse_theme_setup' );
+
+function wpse_theme_setup() {
+	add_theme_support( 'title-tag' );
+}
+
+
+
+add_action('wp_enqueue_scripts', 'fruitful_frontend_scripts_include_lightbox');
+function fruitful_frontend_scripts_include_lightbox() {
+    global $woocommerce;
+    if(!class_exists( 'WooCommerce' )) return;
+    $suffix      = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+    //$lightbox_en = get_option( 'woocommerce_enable_lightbox' ) == 'yes' ? true : false; //deprecated woocommerce 3.0 option. Need to update
+    $lightbox_en = true;
+
+    if ( $lightbox_en ) {
+        if ( !wp_script_is( 'prettyPhoto') ) {
+            wp_enqueue_script( 'prettyPhoto', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), $woocommerce->version, true );
+        }
+        if ( !wp_script_is( 'prettyPhoto-init') ) {
+            wp_enqueue_script( 'prettyPhoto-init', $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery' ), $woocommerce->version, true );
+        }
+        if ( !wp_style_is( 'woocommerce_prettyPhoto_css') ) {
+            wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woocommerce->plugin_url() . '/assets/css/prettyPhoto.css' );
+        }
+    }
 }

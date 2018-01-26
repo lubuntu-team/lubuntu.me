@@ -126,6 +126,7 @@ class AIOWPSecurity_Installer
         block_reason varchar(128) NOT NULL DEFAULT '',
         country_origin varchar(50) NOT NULL DEFAULT '',
         blocked_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+        unblock tinyint(1) NOT NULL DEFAULT '0',
         PRIMARY KEY  (id)
         )" . $charset_collate . ";";
         dbDelta($pb_tbl_sql);
@@ -171,7 +172,7 @@ class AIOWPSecurity_Installer
             //Case where previously installed plugin was reactivated
             //Let's copy the original configs back to the options table
             $updated = update_option('aio_wp_security_configs', $temp_cfgs);
-            if ($updated === FALSE) {
+            if (!$updated) {
                 $aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Installer::run_installer() - Update of option settings failed upon plugin activation!", 4);
             }
             $aio_wp_security->configs->configs = $temp_cfgs; //copy the original configs to memory

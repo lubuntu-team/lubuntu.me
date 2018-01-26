@@ -1,10 +1,11 @@
 === 404page - your smart custom 404 error page ===
-Contributors: petersplugins, smartware.cc
-Donate link:http://petersplugins.com/make-a-donation/
+Contributors: petersplugins
+Donate link: https://petersplugins.com/make-a-donation/
 Tags: page, 404, error, error page, 404 page, page not found, page not found error, 404 error page, missing, broken link, template, 404 link, seo, custom 404, custom 404 page, custom 404 error, custom 404 error page, customize 404, customize 404 page, customize 404 error page
 Requires at least: 3.0
-Tested up to: 4.6
-Stable tag: 2.3
+Tested up to: 4.9
+Stable tag: 3.3
+Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,28 +13,78 @@ Custom 404 the easy way! Set any page as custom 404 error page. No coding needed
 
 == Description ==
 
-> Create your custom 404 Error Page using the full Power of WordPress
+<strong>The 404page plugin is the most used plugin to create a customized 404 error page in WordPress.</strong>
 
-**See also [Plugin Homepage](http://petersplugins.com/free-wordpress-plugins/404page/) and [Plugin Doc](http://petersplugins.com/docs/404page/)**
+It allows you to easily create your own 404 error page without any effort and it works with almost every theme.
 
-https://www.youtube.com/watch?v=VTL07Lf0IsY
+<blockquote>
+If you like this plugin please do me favor and leave a review here on wordpress.org so that other people know it is helpful for you. Thanks!
+</blockquote>
 
-Create your custom 404 Page as a normal WordPress Page using the full power of WordPress. You can use a Custom Page Template or Custom Fields, you can set a Featured Image - everything like on every other Page. Then go to 'Appearance' -> '404 Error Page' from your WordPress Dashbord and select the created Page as your 404 error page. That's it!
+[youtube https://youtu.be/HygoFMwdIuY]
 
-= Why you should choose this plugin =
+= Usage =
+
+Create your custom 404 error page just like any other page using the WordPress Page Editor. Then go to 'Appearance' -> '404 Error Page' and select the created page as your custom 404 error page. That's it!
 
 * Different from other similar plugins the 404page plugin **does not create redirects**. That’s **quite important** because a correct code 404 is delivered which tells search engines that the page does not exist and has to be removed from the index. A redirect would result in a HTTP code 301 or 302 and the URL would remain in the search index.
 * Different from other similar plugins the 404page plugin **does not create additional server requests**. 
 
-= Translations =
+= Docs & Support =
 
-The 404page Plugin uses GlotPress - the wordpress.org Translation System - for translations. Translations can be submitted at [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/404page).
+More detailed information about the 404page plugin can be found in the [Plugin Manual](http://petersplugins.com/docs/404page/). For support check the [Support Forum](https://wordpress.org/support/plugin/404page).
 
-**Translation are highly appreciated**. It would be great if you'd support the 404page Plugin by adding a new translation or keeping an existing one up to date. If you're new to GlotPress take a look at the [Translator Handbook](https://make.wordpress.org/polyglots/handbook/tools/glotpress-translate-wordpress-org/).
+== Compatibility ==
 
-= Do you like the 404page Plugin? =
+= The 404page plugin was sucessfully tested by the author with the following themes =
+* [Athena](https://wordpress.org/themes/athena/)
+* [Customizr](https://wordpress.org/themes/customizr/) (Read more about [Customizr Compatibility Mode](http://petersplugins.com/docs/404page/#settings_operating_method))
+* [Enfold](https://themeforest.net/item/enfold-responsive-multipurpose-theme/4519990?ref=petersplugins)
+* [evolve](https://wordpress.org/themes/evolve/)
+* [GeneratePress](https://wordpress.org/themes/generatepress/)
+* [Graphene](https://wordpress.org/themes/graphene/)
+* [Hemingway](https://wordpress.org/themes/hemingway/)
+* [Hueman](https://wordpress.org/themes/hueman/)
+* [Responsive](https://wordpress.org/themes/responsive/)
+* [Spacious](https://wordpress.org/themes/spacious/)
+* [Sparkling](https://wordpress.org/themes/sparkling/)
+* [Sydney](https://wordpress.org/themes/sydney/)
+* [Twenty Ten](https://wordpress.org/themes/twentyten/)
+* [Twenty Eleven](https://wordpress.org/themes/twentyeleven/)
+* [Twenty Twelve](https://wordpress.org/themes/twentytwelve/)
+* [Twenty Thirteen](https://wordpress.org/themes/twentythirteen/)
+* [Twenty Fourteen](https://wordpress.org/themes/twentyfourteen/)
+* [Twenty Fifteen](https://wordpress.org/themes/twentyfifteen/)
+* [Twenty Sixteen](https://wordpress.org/themes/twentysixteen/)
+* [Twenty Seventeen](https://wordpress.org/themes/twentyseventeen/)
+* [Vantage](https://wordpress.org/themes/vantage/)
+* [Virtue](https://wordpress.org/themes/virtue/)
+* [Zerif Lite](http://themeisle.com/themes/zerif-lite/)
 
-Thanks, I appreciate that. You don’t need to make a donation. No money, no beer, no coffee. Please, just [tell the world that you like what I’m doing](http://petersplugins.com/make-a-donation/)! And that’s all.
+= The 404page plugin was sucessfully tested by the author with the following starter themes =
+* [Bones](http://themble.com/bones/)
+* [JointsWP](http://jointswp.com/)
+* [undersores](http://underscores.me/)
+
+= The 404page plugin was sucessfully tested by the author with the following plugins =
+* [bbPress](https://wordpress.org/plugins/bbpress/)
+* [BuddyPress](https://wordpress.org/plugins/buddypress/)
+* [DW Question & Answer](https://www.designwall.com/wordpress/plugins/dw-question-answer/)
+* [hashtagger](https://wordpress.org/plugins/hashtagger/)
+* [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/)
+* [Polylang](https://wordpress.org/plugins/polylang/)
+* [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
+* [WooCommerce](https://wordpress.org/plugins/woocommerce/)
+* [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/)(Read more about [WP Super Cache Compatibility](http://petersplugins.com/docs/404page/#wp_super_cache)
+* [WPML WordPress Multilingual Plugin](https://wpml.org/)([officially approved by WPML team](https://wpml.org/plugin/404page/))
+
+== For developers ==
+
+= Action Hook =
+The plugin adds an action hook 404page_after_404 which you can use to add extra functionality. The exact position the action occurs after an 404 error is detected depends on the Operating Method. Your function must not generate any output. There are no parameters.
+
+= Native Support =
+If you are a theme developer you can add native support for the 404page plugin to your theme for full control. [Read more](http://petersplugins.com/docs/404page/#theme_native_support).
 
 = More plugins from Peter =
 
@@ -42,19 +93,12 @@ Thanks, I appreciate that. You don’t need to make a donation. No money, no bee
 * **[smart User Slug Hider](https://wordpress.org/plugins/smart-user-slug-hider/)** - Hide usernames in author pages URLs to enhance security 
 * [See all](https://profiles.wordpress.org/petersplugins/#content-plugins)
 
-== Installation ==
+== Screenshots ==
 
-= From your WordPress dashboard =
-
-1. Visit 'Plugins' -> 'Add New'
-1. Search for '404page'
-1. Activate the plugin through the 'Plugins' menu in WordPress
-
-= Manually from wordpress.org =
-
-1. Download 404page from wordpress.org and unzip the archive
-1. Upload the `404page` folder to your `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Create your costom 404 Error Page as a normal WordPress Page
+2. Set the created Page as 404 Error Page
+3. Advanced Settings
+4. Advanced Settings with WPML plugin installed (Compatibility Mode is not available, because the 404page plugin automatically switches to WMPL mode)
 
 == Frequently Asked Questions ==
 
@@ -66,19 +110,44 @@ To enable the WordPress 404 error handling you have to set the Permalink Structu
 
 No, there is no redirection! The chosen page is delivered as a 'real' 404 error page. This results in a HTTP 404 code and not in 301 or 302, which is important for Search Engines to tell them, that the page does not exist and should be deleted from the index.
 
-= What about PHP Version 7? =
-The plugin works smoothly with PHP 7.
-
 = Is it possible to add custom CSS to the 404 page? =
+
 The 404page plugin adds a CSS class `error404` to the `<body>` tag which can be used for extra styling.
 
-== Screenshots ==
-
-1. Create your 404 Page as a normal WordPress Page
-2. Define the created Page as 404 Error Page
-3. Your custom 404 Error Page is shown in case of a 404 error
-
 == Changelog ==
+
+= 3.3 (2017-11-16) =
+* support for right-to-left-languages added
+* faulty display in WP 4.9 fixed
+
+= 3.2 (2017-10-05) =
+* new feature to send an HTTP 410 error for deleted objects
+
+= 3.1 (2017-07-24) =
+* bugfix for Polylang ([See Topic](https://wordpress.org/support/topic/3-0-breaks-polylang-support/))
+* bugfix for CLI ([See Topic](https://wordpress.org/support/topic/uninstall-php-from-cli-failed/))
+* add debug class to body tag
+* also add body classes for Customizr theme
+* do not add error404 class if already exists
+* further redesign admin interface
+
+= 3.0 (2017-07-05) =
+* new feature to force 404 error after loading page
+* new feature to disable URL autocorrection guessing 
+* finally removed Polylang stuff disabled in 2.4
+* redesigned admin interface
+* code improvement
+
+= 2.5 (2017-05-19) =
+* hide 404 page from search results on front end (if WPML is active, all languages are hidden)
+* do not fire a 404 in Compatibility Mode if the [DW Question & Answer plugin by DesignWall](https://www.designwall.com/wordpress/plugins/dw-question-answer/) is active and a question has no answers
+
+= 2.4 (2017-03-08) =
+* ensure that all core files are loaded properly ([See Topic](https://wordpress.org/support/topic/had-to-deactivate-404page-to-make-wordpress-correctly))
+* Polylang plugin does no longer require Compatibility Mode ([See Topic](https://wordpress.org/support/topic/still-displaying-the-themes-404-page-with-polylang/))
+* hide all translations if WPML is installed and "Hide 404 page" is active (thanks to the [WPML](https://wpml.org/) guys for pointing me at this)
+* post status fix ([See topic](https://wordpress.org/support/topic/doesnt-work-with-custom-post-status/))
+* [Enfold theme](https://themeforest.net/item/enfold-responsive-multipurpose-theme/4519990?ref=petersplugins) issue fix (thanks to the guys at [Kriesi.at](http://www.kriesi.at/) for supporting me)
 
 = 2.3 (2016-11-21) =
 * a few minor bug fixes solve some problems with page templates in certain combinations
@@ -135,6 +204,27 @@ The 404page plugin adds a CSS class `error404` to the `<body>` tag which can be 
 
 == Upgrade Notice ==
 
+= 3.3 =
+support for right-to-left-languages
+
+= 3.2 =
+new feature to send an HTTP 410 error for deleted objects
+
+= 3.1 =
+fixed two bugs, plus further enhancements
+
+= 3.0 =
+new features added to force 404 error after loading page and to disable URL autocorrection guessing, plus further enhancements
+
+= 2.5 =
+Hide 404 page from search results, compatibility with DW Question & Answer plugin
+
+= 2.4 = 
+Version 2.4 fixes several issues. See [changelog](https://wordpress.org/plugins/404page/changelog/) for details.
+
+= 2.3 =
+A few minor bug fixes solve some problems with page templates in certain combinations.
+
 = 2.2 =
 Enhanced compatibility. Automated Operating Method select removed. Several fixes.
 
@@ -146,52 +236,3 @@ Version 2.0 is more or less a completely new development and a big step forward.
 
 = 1.4 =
 Editing of the 404 page is now possible directly from settings page. Portuguese translation added.
-
-== Compatibility ==
-
-= The 404page plugin was sucessfully tested by the author with the following themes =
-* [Athena](https://wordpress.org/themes/athena/)
-* [Customizr](https://wordpress.org/themes/customizr/) (Read more about [Customizr Compatibility Mode](http://petersplugins.com/docs/404page/#settings_operating_method))
-* [evolve](https://wordpress.org/themes/evolve/)
-* [GeneratePress](https://wordpress.org/themes/generatepress/)
-* [Graphene](https://wordpress.org/themes/graphene/)
-* [Hemingway](https://wordpress.org/themes/hemingway/)
-* [Hueman](https://wordpress.org/themes/hueman/)
-* [Responsive](https://wordpress.org/themes/responsive/)
-* [Spacious](https://wordpress.org/themes/spacious/)
-* [Sparkling](https://wordpress.org/themes/sparkling/)
-* [Sydney](https://wordpress.org/themes/sydney/)
-* [Twenty Ten](https://wordpress.org/themes/twentyten/)
-* [Twenty Eleven](https://wordpress.org/themes/twentyeleven/)
-* [Twenty Twelve](https://wordpress.org/themes/twentytwelve/)
-* [Twenty Thirteen](https://wordpress.org/themes/twentythirteen/)
-* [Twenty Fourteen](https://wordpress.org/themes/twentyfourteen/)
-* [Twenty Fifteen](https://wordpress.org/themes/twentyfifteen/)
-* [Twenty Sixteen](https://wordpress.org/themes/twentysixteen/)
-* [Vantage](https://wordpress.org/themes/vantage/)
-* [Virtue](https://wordpress.org/themes/virtue/)
-* [Zerif Lite](http://themeisle.com/themes/zerif-lite/)
-
-= The 404page plugin was sucessfully tested by the author with the following starter themes =
-* [Bones}(http://themble.com/bones/)
-* [JointsWP](http://jointswp.com/)
-* [undersores](http://underscores.me/)
-
-= The 404page plugin was sucessfully tested by the author with the following plugins =
-* [bbPress](https://wordpress.org/plugins/bbpress/)
-* [BuddyPress](https://wordpress.org/plugins/buddypress/)
-* [hashtagger](https://wordpress.org/plugins/hashtagger/)
-* [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/)
-* [Polylang](https://wordpress.org/plugins/polylang/)
-* [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
-* [WooCommerce](https://wordpress.org/plugins/woocommerce/)
-* [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/)(Read more about [WP Super Cache Compatibility](http://petersplugins.com/docs/404page/#wp_super_cache)
-* [WPML WordPress Multilingual Plugin](https://wpml.org/)([officially approved by WPML team](https://wpml.org/plugin/404page/))
-
-== For developers ==
-
-= Action Hook =
-The plugin adds an action hook 404page_after_404 which you can use to add extra functionality. The exact position the action occurs after an 404 error is detected depends on the Operating Method. Your function must not generate any output. There are no parameters.
-
-= Native Support =
-If you are a theme developer you can add native support for the 404page plugin to your theme for full control. [Read more](http://petersplugins.com/docs/404page/#theme_native_support).

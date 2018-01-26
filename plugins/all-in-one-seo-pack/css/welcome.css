@@ -120,6 +120,14 @@ section:first-child {
 	list-style-type: square;
 }
 
+#wp-people-group-rockstars li {
+	margin-bottom: 1.33em;
+}
+
+#wp-people-group-rockstars li.wp-person {
+	margin-bottom: 0;
+}
+
 @media screen and (max-width: 850px) {
 	.welcome-panel-column {
 		width: 100%;

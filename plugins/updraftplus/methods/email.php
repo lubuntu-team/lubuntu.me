@@ -4,7 +4,9 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 
 // Files can easily get too big for this method
 
-class UpdraftPlus_BackupModule_email {
+if (!class_exists('UpdraftPlus_BackupModule')) require_once(UPDRAFTPLUS_DIR.'/methods/backup-module.php');
+
+class UpdraftPlus_BackupModule_email extends UpdraftPlus_BackupModule {
 
 	public function backup($backup_array) {
 
@@ -42,13 +44,13 @@ class UpdraftPlus_BackupModule_email {
 
 					$subject = __("WordPress Backup", 'updraftplus').': '.get_bloginfo('name').' (UpdraftPlus '.$updraftplus->version.') '.get_date_from_gmt(gmdate('Y-m-d H:i:s', $updraftplus->backup_time), 'Y-m-d H:i');
 
-					$sent = wp_mail(trim($sendmail_addr), $subject, sprintf(__("Backup is of: %s.",'updraftplus'), site_url().' ('.$descrip_type.')'), null, array($fullpath));
+					$sent = wp_mail(trim($sendmail_addr), $subject, sprintf(__("Backup is of: %s.", 'updraftplus'), site_url().' ('.$descrip_type.')'), null, array($fullpath));
 					if ($sent) $any_sent = true;
 				}
 			}
 			if ($any_sent) {
 				if (isset($toobig_hash)) {
-					$updraftplus->log_removewarning('toobigforemail_'.$toobig_hash);
+					$updraftplus->log_remove_warning('toobigforemail_'.$toobig_hash);
 					// Don't leave it still set for the next archive
 					unset($toobig_hash);
 				}
@@ -63,6 +65,18 @@ class UpdraftPlus_BackupModule_email {
 		return null;
 	}
 
+	/**
+	 * Acts as a WordPress options filter
+	 *
+	 * @param  Array $options - An array of options
+	 *
+	 * @return Array - the returned array can either be the set of updated settings or a WordPress error array
+	 */
+	public function options_filter($options) {
+		global $updraftplus;
+		return $updraftplus->just_one_email($options);
+	}
+	
 	public function config_print() {
 		?>
 		<tr class="updraftplusmethod email">
@@ -71,10 +85,11 @@ class UpdraftPlus_BackupModule_email {
 
 				$used = apply_filters('updraftplus_email_whichaddresses',
 					sprintf(__("Your site's admin email address (%s) will be used.", 'updraftplus'), get_bloginfo('admin_email').' - <a href="'.esc_attr(admin_url('options-general.php')).'">'.__("configure it here", 'updraftplus').'</a>').
-					' <a href="'.apply_filters("updraftplus_com_link","https://updraftplus.com/shop/reporting/").'">'.sprintf(__('For more options, use the "%s" add-on.', 'updraftplus'), __('Reporting', 'updraftplus')).'</a>'
+					' <a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/reporting/").'">'.sprintf(__('For more options, use the "%s" add-on.', 'updraftplus'), __('Reporting', 'updraftplus')).'</a>'
 				);
 
-				echo $used.' '.sprintf(__('Be aware that mail servers tend to have size limits; typically around %s MB; backups larger than any limits will likely not arrive.','updraftplus'), '10-20');?>
+				echo $used.' '.sprintf(__('Be aware that mail servers tend to have size limits; typically around %s MB; backups larger than any limits will likely not arrive.', 'updraftplus'), '10-20');
+				?>
 			</td>
 		</tr>
 		<?php
@@ -83,5 +98,4 @@ class UpdraftPlus_BackupModule_email {
 	public function delete($files, $data = null, $sizeinfo = array()) {
 		return true;
 	}
-
 }

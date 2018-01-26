@@ -39,7 +39,10 @@ class aiosp_metaboxes {
 					if ( ! AIOSEOPPRO ) {
 						?>
 						<p>
-							<strong><?php echo aiosp_common::get_upgrade_hyperlink( 'side', __( 'Pro Version', 'all-in-one-seo-pack' ), __( 'CLICK HERE', 'all-in-one-seo-pack' ), '_blank' ); ?> to upgrade to Pro Version and get:</strong>
+							<strong>
+                                <?php
+                                echo aiosp_common::get_upgrade_hyperlink( 'side', __( 'Pro Version', 'all-in-one-seo-pack' ), __( 'CLICK HERE', 'all-in-one-seo-pack' ), '_blank' );
+                                echo __( ' to upgrade to Pro Version and get:', 'all-in-one-seo-pack' ); ?></strong>
 						</p>
 					<?php } ?>
 				</div>
@@ -70,17 +73,22 @@ class aiosp_metaboxes {
 					// Eventually if nothing is returned we should just remove this section.
 
 					if ( get_locale() != 'en_US' ) { ?>
-						<div><strong>
+						<div class="aioseop_translations"><strong>
 								<?php
 
 								if ( $aiosp_trans->percent_translated < 100 ) {
+									if ( ! empty ( $aiosp_trans->native_name ) ) {
+										$maybe_native_name = $aiosp_trans->native_name;
+									} else {
+										$maybe_native_name = $aiosp_trans->name;
+									}
 
 									/* translators: %1$s expands to the number of languages All in One SEO Pack has been translated into. $2%s to the percentage translated of the current language, $3%s to the language name, %4$s and %5$s to anchor tags with link to translation page at translate.wordpress.org  */
 									printf( __(
 										'All in One SEO Pack has been translated into %1$s languages, but currently the %3$s translation is only %2$s percent complete. %4$s Click here %5$s to help get it to 100 percent.', 'all-in-one-seo-pack' ),
 										$aiosp_trans->translated_count,
 										$aiosp_trans->percent_translated,
-										$aiosp_trans->name,
+										$maybe_native_name,
 										"<a href=\"$aiosp_trans->translation_url\" target=\"_BLANK\">",
 										'</a>' );
 								}
@@ -103,8 +111,8 @@ class aiosp_metaboxes {
 							<i><?php _e( 'Sign up today and receive a free copy of the e-book 5 SEO Tips for WordPress ($39 value).', 'all-in-one-seo-pack' ); ?></i>
 						</p>
 						<p><input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL"
-						          placeholder="Email Address">
-							<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+						          placeholder="<?php _e( 'Email Address', 'all-in-one-seo-pack' ); ?>">
+							<input type="submit" value="<?php _e( 'Subscribe', 'all-in-one-seo-pack' ); ?>" name="subscribe" id="mc-embedded-subscribe"
 							       class="btn"></p>
 					</form>
 				</div>
@@ -150,18 +158,20 @@ class aiosp_metaboxes {
 		echo '<ul>';
 
 		if ( class_exists( 'WooCommerce' ) ) {
-			echo '<li>Advanced support for WooCommerce</li>';
+			echo '<li>' . __( 'Advanced support for WooCommerce', 'all-in-one-seo-pack' ) . '</li>';
 		}else{
-			echo '<li>Advanced support for e-commerce</li>';
+			echo '<li>' . __( 'Advanced support for e-commerce', 'all-in-one-seo-pack' ) . '</li>';
 		}
 
-		echo '<li>Video SEO Module</li>';
-		echo '<li>SEO for Categories, Tags and Custom Taxonomies</li>';
-		echo '<li>Access to Video Screencasts</li>';
-		echo '<li>Access to Premium Support Forums</li>';
-		echo '<li>Access to Knowledge Center</li>';
+		echo '<li>' . __( 'Video SEO Module', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'SEO for Categories, Tags and Custom Taxonomies', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'Access to Video Screencasts', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'Access to Premium Support Forums', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'Access to Knowledge Center', 'all-in-one-seo-pack' ) . '</li>';
 
 		echo '</ul>';
+
+		echo '<a href="https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/new" />Click here</a> to file a feature request/bug report.';
 
 	}
 

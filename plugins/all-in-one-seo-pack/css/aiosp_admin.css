@@ -127,3 +127,8 @@ li#wp-admin-bar-aioseop-pro-upgrade a.ab-item {
     background-color:#00aced;
     border-radius:2px;
 }
+.upgrade_menu_link {
+    font-weight: 900;
+    color: #d54e21;
+    font-size: 105%;
+}

@@ -35,7 +35,7 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
      * @param \Dropbox\OAuth\Consumer\StorageInterface $storage
      * @param string $callback
      */
-    public function __construct($key, $oauth2_id, $secret, Dropbox_StorageInterface $storage, $callback = null, $callbackhome = null, $deauthenticate = false)
+    public function __construct($key, $oauth2_id, $secret, Dropbox_StorageInterface $storage, $callback = null, $callbackhome = null, $deauthenticate = false, $instance_id = '')
     {
         // Check the cURL extension is loaded
         if (!extension_loaded('curl')) {
@@ -48,6 +48,7 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
         $this->storage = $storage;
         $this->callback = $callback;
         $this->callbackhome = $callbackhome;
+        $this->instance_id = $instance_id;
         
         if ($deauthenticate) {
 			$this->deauthenticate();
@@ -120,11 +121,6 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
             $options[CURLOPT_FILE] = $this->outFile;
             $options[CURLOPT_BINARYTRANSFER] = true;
             $options[CURLOPT_FAILONERROR] = true;
-            /*
-                Not sure if this is used, keeping it here for backwards compatibility at the moment.
-                With API v2 the headers are set in the $request they are set above if they are set.
-             */
-            if (isset($additional['headers'])) $options[CURLOPT_HTTPHEADER] = $additional['headers'];
             $this->outFile = null;
         }  elseif ($method == 'POST' && $this->outFile) { // POST
             $options[CURLOPT_POST] = true;
@@ -180,9 +176,9 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
             }
             
             // Check if an error occurred and throw an Exception
-            if (!empty($response['body']->error)) {
+            if (!empty($response['body']->error) || $code >= 400) {
                 // Dropbox returns error messages inconsistently...
-                if ($response['body']->error instanceof stdClass) {
+                if (!empty($response['body']->error) && $response['body']->error instanceof stdClass) {
                     $array = array_values((array) $response['body']->error);
                     //Dropbox API v2 only throws 409 errors if this error is a incorrect_offset then we need the entire error array not just the message. PHP Exception messages have to be a string so JSON encode the array.
                     if (strpos($array[0] , 'incorrect_offset') !== false) {
@@ -199,8 +195,13 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
                     } else {
                         $message = $array[0];
                     }
-                } else {
+                } elseif (!empty($response['body']->error)) {
                     $message = $response['body']->error;
+                } elseif (is_string($response['body'])) {
+					// 31 Mar 2017 - This case has been found to exist; though the docs imply that there's always an 'error' property and that what is returned in JSON, we found a case of this being returned just as a simple string, but detectable via an HTTP 400: Error in call to API function "files/upload_session/append_v2": HTTP header "Dropbox-API-Arg": cursor.offset: expected integer, got string
+					$message = $response['body'];
+                } else {
+					$message = "HTTP bad response code: $code";
                 }
                      
                 // Throw an Exception with the appropriate with the appropriate message and code

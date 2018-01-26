@@ -52,10 +52,10 @@
 					       target="_blank"><?php echo __( 'We have complete documentation on every setting and feature', 'all-in-one-seo-pack' ); ?></a>
 					</li>
 					<li><a href="https://semperplugins.com/videos/"
-					       target="_blank"><?php echo __( 'You can get access to video tutorials about SEO with the Pro version', 'all-in-one-seo-pack' ); ?></a>
+					       target="_blank"><?php echo __( 'Access to video tutorials about SEO with the Pro version', 'all-in-one-seo-pack' ); ?></a>
 					</li>
 					<li><a href="https://semperplugins.com/all-in-one-seo-pack-pro-version/?loc=aio_welcome"
-					       target="_blank"><?php echo __( 'You can control SEO on categories, tags and custom taxonomies with the Pro version', 'all-in-one-seo-pack' ); ?></a>
+					       target="_blank"><?php echo __( 'Control SEO on categories, tags and custom taxonomies with the Pro version', 'all-in-one-seo-pack' ); ?></a>
 					</li>
 				</ul>
 			</div>

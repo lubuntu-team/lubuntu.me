@@ -1,11 +1,264 @@
-#adminmenu #toplevel_page_wps_overview_page .wp-menu-image:before {
-	content: "\f184";
+/** Setting page **/
+.wp-statistics-settings .widefat {
+    float: left;
 }
 
-#wp-admin-bar-wp-statistic-menu .ab-icon:before{
-	font-family: "dashicons" !important;
-	content: "\f184" !important;
+.wp-statistics-settings .postbox-container {
+    margin-top: 51px;
 }
-.wps-center{
-	text-align: center;
+
+.wp-statistics-container {
+    margin: 0 auto;
+}
+
+.wp-statistics-settings ul.tabs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wp-statistics-settings ul.tabs li {
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 10px 10px;
+    cursor: pointer;
+    border: 1px solid #f1f1f1;
+    margin: 0;
+}
+
+.wp-statistics-settings ul.tabs li.current {
+    background: #ffffff;
+    color: #222;
+    border-right-color: #e5e5e5;
+    border-left-color: #e5e5e5;
+    border-bottom-color: #ffffff;
+    border-top-color: #e5e5e5;
+    padding-bottom: 11px;
+}
+
+.wp-statistics-settings .tab-content {
+    display: none;
+    background: #ffffff;
+    padding: 15px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    margin: -1px 0 0 0;
+}
+
+.wp-statistics-settings .tab-content.current {
+    display: inherit;
+}
+
+.rtl .wp-statistics-settings .widefat {
+    float: right;
+}
+
+@media only screen and (max-width: 1327px) {
+    .wp-statistics-settings ul.tabs li {
+        padding: 10px 5px;
+    }
+}
+
+/** Add-Ons page **/
+.wp-statistics-plugins .widefat > * {
+    float: left;
+}
+
+.wp-statistics-plugins .widefat .plugin-card {
+    position: relative;
+}
+
+.wp-statistics-plugins .widefat .plugin-card .desc,
+.wp-statistics-plugins .widefat .plugin-card .name {
+    margin-right: 0;
+}
+
+.rtl .wp-statistics-plugins .widefat > * {
+    float: right;
+}
+
+.rtl .wp-statistics-plugins .widefat .plugin-card .desc,
+.rtl .wp-statistics-plugins .widefat .plugin-card .name {
+    margin-right: 148px;
+    margin-left: 0;
+}
+
+.wp-statistics-plugins .widefat .plugin-card-bottom {
+    float: initial;
+}
+
+.wp-statistics-plugins .widefat .column-downloaded p {
+    margin: 2px 0 0 0;
+}
+
+.wp-statistics-plugins .column-price {
+    display: inline;
+    margin: 0 8px;
+    font-size: 15px;
+    color: #589616;
+}
+
+.wp-statistics-plugins .plugin-card .cover-ribbon {
+    height: 115px;
+    width: 115px;
+    position: absolute;
+    left: -8px;
+    top: -7px;
+    overflow: hidden;
+}
+
+.wp-statistics-plugins .plugin-card .cover-ribbon .cover-ribbon-inside {
+    background: #EA4335;
+    color: #FFF;
+    transform: rotate(-45deg);
+    position: absolute;
+    left: -35px;
+    top: 16px;
+    padding: 10px;
+    min-width: 127px;
+    text-align: center;
+    z-index: 9;
+}
+
+.wp-statistics-plugins .plugin-card .cover-ribbon .cover-ribbon-inside:before {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid #992C23;
+    position: absolute;
+    left: -5px;
+    bottom: 0;
+    content: "";
+    top: 34px;
+    transform: rotate(-45deg);
+}
+
+.wp-statistics-plugins .plugin-card .cover-ribbon .cover-ribbon-inside:after {
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-left: 7px solid #992C23;
+    border-bottom: 7px solid transparent;
+    position: absolute;
+    top: 33px;
+    bottom: 0;
+    right: 4px;
+    content: "";
+    transform: rotate(-45deg);
+}
+
+.rtl .wp-statistics-plugins .plugin-card .cover-ribbon {
+    right: -8px;
+}
+
+.rtl .wp-statistics-plugins .plugin-card .cover-ribbon .cover-ribbon-inside {
+    transform: rotate(45deg);
+    right: -34px;
+    left: auto;
+}
+
+.rtl .wp-statistics-plugins .plugin-card .cover-ribbon .cover-ribbon-inside:before {
+    left: -1px;
+}
+
+.rtl .wp-statistics-plugins .plugin-card .cover-ribbon .cover-ribbon-inside:after {
+    right: -1px;
+}
+
+/** Other CSS **/
+.wp-statistics-settings .note {
+    color: #FF0000;
+    font-size: 11px !important;
+    font-weight: bold;
+}
+
+.wps-center {
+    text-align: center;
+}
+
+#wps_about_postbox #about_postbox img {
+    max-width: 170px;
+    margin: 0 0 9px 0;
+}
+
+.column-wp-statistics {
+    width: 52px;
+}
+
+#wpadminbar #wp-admin-bar-wp-statistic-menu .ab-icon:before {
+    content: '\f184';
+    top: 2px;
+}
+
+/** Welcome page **/
+.wp-statistics-welcome .wp-badge {
+    background-image: url('../images/logo-250-white.png');
+    background-color: #1aabec;
+}
+
+.wp-statistics-welcome .tab-content {
+    display: none;
+}
+
+.wp-statistics-welcome .tab-content.current {
+    display: block;
+}
+
+.wp-statistics-welcome ul li {
+    margin: 0 31px;
+}
+
+.wp-statistics-welcome ul {
+    list-style-type: square;
+    line-height: 28px;
+    margin: 0 0 20px 0;
+}
+
+.wp-statistics-welcome .center-section {
+    padding: 41px 0 60px;
+    clear: both;
+    text-align: center;
+}
+
+.wp-statistics-welcome .normal-section .left {
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+
+.wp-statistics-welcome .normal-section .right {
+    float: right;
+    width: 50%;
+}
+
+.wp-statistics-welcome .normal-section {
+    float: left;
+    width: 100%;
+    padding: 36px 0 44px;
+    border-bottom: 1px solid #dedede;
+}
+
+.wp-statistics-welcome .normal-section h2 {
+    text-align: left;
+}
+
+.wp-statistics-welcome .text-center {
+    text-align: center !important;
+}
+
+.wp-statistics-welcome .content-padding {
+    padding: 0 43px;
+}
+
+.wp-statistics-welcome .addons-item img {
+    width: 130px;
+    border-radius: 4px;
+}
+
+.wp-statistics-welcome .addons-item a {
+    display: inline-block;
+    margin: 0 5px;
 }

@@ -5,6 +5,7 @@
  * We'll eventually move these to a better place, and figure out ones not being used anymore.
  *
  * @package All-in-One-SEO-Pack
+ * @version 2.3.13
  */
 
 if ( ! function_exists( 'aioseop_load_modules' ) ) {
@@ -183,7 +184,7 @@ if ( ! function_exists( 'aioseop_mrt_pcolumns' ) ) {
 if ( ! function_exists( 'aioseop_admin_head' ) ) {
 
 	function aioseop_admin_head() {
-		echo '<script type="text/javascript" src="' . AIOSEOP_PLUGIN_URL . 'js/quickedit_functions.js" ></script>';
+		wp_enqueue_script( 'aioseop_welcome_js', AIOSEOP_PLUGIN_URL . 'js/quickedit_functions.js', array( 'jquery' ), AIOSEOP_VERSION);
 		?>
 		<style>
 			.aioseop_edit_button {
@@ -295,7 +296,7 @@ if ( ! function_exists( 'aioseop_output_notice' ) ) {
 			$class .= ' id="' . esc_attr( $id ) . '"';
 		}
 		$dismiss = ' ';
-		echo "<div{$class}>" . wp_kses_post( $message ) . '<br class=clear /></div>';
+		echo "<div{$class}>" . wp_kses_post( $message ) . '</div>';
 
 		return true;
 	}
@@ -955,4 +956,46 @@ function aioseop_update_yst_detected_notice() {
 function aioseop_woo_upgrade_notice_dismissed() {
 
 	update_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed', true );
+}
+
+function aioseop_sitemap_max_url_notice_dismissed() {
+
+	update_user_meta( get_current_user_id(), 'aioseop_sitemap_max_url_notice_dismissed', true );
+}
+
+/**
+ * Returns home_url() value compatible for any use.
+ * Thought for compatibility purposes.
+ *
+ * @since 2.3.12.3
+ *
+ * @param string $path Relative path to home_url().
+ *
+ * @return string url.
+ */
+function aioseop_home_url( $path = '/' ) {
+
+	$url = apply_filters( 'aioseop_home_url', $path );
+	return $path === $url ? home_url( $path ) : $url;
+}
+
+
+if ( ! function_exists('aiosp_include_images') ) {
+	function aiosp_include_images() {
+		if ( false === apply_filters( 'aioseo_include_images_in_sitemap', true ) ) {
+			return false;
+		}
+
+		global $aioseop_options;
+
+		if( 	isset( $aioseop_options['modules'] ) && 
+			isset( $aioseop_options['modules']['aiosp_sitemap_options'] ) && 
+			isset( $aioseop_options['modules']['aiosp_sitemap_options']['aiosp_sitemap_images'] ) && 
+			'on' === $aioseop_options['modules']['aiosp_sitemap_options']['aiosp_sitemap_images']
+		 ){
+			return false; 	
+ 		}
+
+		return true;	
+	}
 }

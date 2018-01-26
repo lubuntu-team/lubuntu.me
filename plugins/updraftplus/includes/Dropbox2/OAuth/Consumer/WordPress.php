@@ -2,7 +2,7 @@
 
 /**
 * OAuth consumer using the WordPress API
-* @author David Anderson <david@wordshell.net>
+* @author David Anderson <david@updraftplus.com>
 * @link https://github.com/DavidAnderson684/Dropbox
 * @package Dropbox\OAuth
 * @subpackage Consumer

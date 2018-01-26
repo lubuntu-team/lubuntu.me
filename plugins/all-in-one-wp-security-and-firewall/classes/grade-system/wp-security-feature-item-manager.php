@@ -26,7 +26,7 @@ class AIOWPSecurity_Feature_Item_Manager
         $this->feature_items = array();
         //Settings Menu Features
         //WP Generator Meta
-        $this->feature_items[] = new AIOWPSecurity_Feature_Item("wp-generator-meta-tag", __("Remove WP Generatore Meta Tag", "all-in-one-wp-security-and-firewall"), $this->feature_point_1, $this->sec_level_basic);
+        $this->feature_items[] = new AIOWPSecurity_Feature_Item("wp-generator-meta-tag", __("Remove WP Generator Meta Tag", "all-in-one-wp-security-and-firewall"), $this->feature_point_1, $this->sec_level_basic);
         
         //Prevent Image Hotlinks
         $this->feature_items[] = new AIOWPSecurity_Feature_Item("prevent-hotlinking", __("Prevent Image Hotlinking", "all-in-one-wp-security-and-firewall"), $this->feature_point_2, $this->sec_level_basic);
@@ -43,6 +43,8 @@ class AIOWPSecurity_Feature_Item_Manager
         //Login Captcha
         $this->feature_items[] = new AIOWPSecurity_Feature_Item("user-login-captcha", __("Login Captcha", "all-in-one-wp-security-and-firewall"), $this->feature_point_4, $this->sec_level_basic);
         $this->feature_items[] = new AIOWPSecurity_Feature_Item("custom-login-captcha", __("Custom Login Captcha", "all-in-one-wp-security-and-firewall"), $this->feature_point_4, $this->sec_level_basic);
+        $this->feature_items[] = new AIOWPSecurity_Feature_Item("woo-login-captcha", __("Woo Login Captcha", "all-in-one-wp-security-and-firewall"), $this->feature_point_2, $this->sec_level_basic);
+        $this->feature_items[] = new AIOWPSecurity_Feature_Item("woo-register-captcha", __("Woo Register Captcha", "all-in-one-wp-security-and-firewall"), $this->feature_point_2, $this->sec_level_basic);
         //Lost Password Captcha
         $this->feature_items[] = new AIOWPSecurity_Feature_Item("lost-password-captcha", __("Lost Password Captcha", "all-in-one-wp-security-and-firewall"), $this->feature_point_2, $this->sec_level_basic);
         //Login whitelisting
@@ -55,6 +57,8 @@ class AIOWPSecurity_Feature_Item_Manager
         $this->feature_items[] = new AIOWPSecurity_Feature_Item("manually-approve-registrations", __("Registration Approval", "all-in-one-wp-security-and-firewall"), $this->feature_point_4, $this->sec_level_basic);
         //Registration Captcha
         $this->feature_items[] = new AIOWPSecurity_Feature_Item("user-registration-captcha", __("Registration Captcha", "all-in-one-wp-security-and-firewall"), $this->feature_point_4, $this->sec_level_basic);
+        //Registration Honeypot
+        $this->feature_items[] = new AIOWPSecurity_Feature_Item("registration-honeypot", __("Enable Registration Honeypot", "all-in-one-wp-security-and-firewall"), $this->feature_point_2, $this->sec_level_inter);
         
         //Database Security Menu Features
         //DB Prefix
@@ -193,6 +197,14 @@ class AIOWPSecurity_Feature_Item_Manager
             {
                 $this->check_custom_login_captcha_feature($item);
             }
+            if($item->feature_id == "woo-login-captcha")
+            {
+                $this->check_woo_login_captcha_feature($item);
+            }
+            if($item->feature_id == "woo-register-captcha")
+            {
+                $this->check_woo_register_captcha_feature($item);
+            }
             if($item->feature_id == "lost-password-captcha")
             {
                 $this->check_lost_password_captcha_feature($item);
@@ -222,7 +234,10 @@ class AIOWPSecurity_Feature_Item_Manager
             {
                 $this->check_registration_captcha_feature($item);
             }
-            
+            if($item->feature_id == "registration-honeypot")
+            {
+                $this->check_enable_registration_honeypot_feature($item);
+            }
             
             if($item->feature_id == "filesystem-file-permissions")
             {
@@ -425,6 +440,30 @@ class AIOWPSecurity_Feature_Item_Manager
         }
     }
 
+    function check_woo_login_captcha_feature($item)
+    {
+        global $aio_wp_security;
+        if ($aio_wp_security->configs->get_value('aiowps_enable_woo_login_captcha') == '1') {
+            $item->set_feature_status($this->feature_active);
+        }
+        else
+        {
+            $item->set_feature_status($this->feature_inactive);
+        }
+    }
+
+    function check_woo_register_captcha_feature($item)
+    {
+        global $aio_wp_security;
+        if ($aio_wp_security->configs->get_value('aiowps_enable_woo_register_captcha') == '1') {
+            $item->set_feature_status($this->feature_active);
+        }
+        else
+        {
+            $item->set_feature_status($this->feature_inactive);
+        }
+    }
+
     function check_lost_password_captcha_feature($item)
     {
         global $aio_wp_security;
@@ -509,6 +548,17 @@ class AIOWPSecurity_Feature_Item_Manager
         }
     }
     
+    function check_enable_registration_honeypot_feature($item)
+    {
+        global $aio_wp_security;
+        if ($aio_wp_security->configs->get_value('aiowps_enable_registration_honeypot') == '1') {
+            $item->set_feature_status($this->feature_active);
+        }
+        else
+        {
+            $item->set_feature_status($this->feature_inactive);
+        }
+    }
     
     function check_db_security_db_prefix_feature($item)
     {

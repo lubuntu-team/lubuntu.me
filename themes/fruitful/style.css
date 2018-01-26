@@ -1,13 +1,13 @@
 /*
-Theme Name: Fruitful
+Theme Name: fruitful
 Theme URI: https://github.com/fruitfulcode/fruitful
 Author: fruitfulcode
 Author URI: https://github.com/fruitfulcode/
-Description: Fruitful - Free WordPress responsive theme with powerful theme options panel and simple clean front end design. Ability to modify styles and options according to your needs. Two different layout types responsive and fixed. Easily upload logo, background, edit colors, header and menu positions, slider, fonts, social icons, footer, custom css and much more. Translated to Russian, German, Spanish, French, Vietnamese, RTL ready. Works perfect with WooCommerce, BuddyPress, WPML, Contact form 7.
-Version: 3.3.1
+Description: Fruitful - Free WordPress responsive theme with powerful theme options panel and simple clean front end design. Ability to modify styles and options according to your needs. Two different layout types responsive and fixed. Easily upload logo, background, edit colors, header and menu positions, slider, fonts, social icons, footer, custom css and much more. Translated to Russian, German, Spanish, French, Vietnamese, RTL ready. Works perfect with BuddyPress, WPML, Contact form 7, WooCommerce till version 3.0.       Fruitful PRO – WordPress responsive theme contains all the options of FREE version plus more options like ability to change width for container grid and support latest WooCommerce version.
+Version: 3.5
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: white, orange, light, theme-options, responsive-layout, fixed-layout, custom-header, custom-background, custom-menu, custom-colors, custom-background, translation-ready, featured-images, full-width-template, one-column, right-sidebar, left-sidebar, editor-style
+Tags: theme-options, custom-header, custom-background, custom-menu, custom-colors, custom-background, translation-ready, featured-images, full-width-template, one-column, right-sidebar, left-sidebar, editor-style
 Text Domain: fruitful
 
 This theme, like WordPress, is licensed under the GPL.
@@ -178,6 +178,11 @@ body.fancybox-lock {
 }
 /* #Tablet (Portrait)================================================== */
 /* Note:Design for a width of 768px */
+@media only screen and (min-width:959px) and (max-width:1024px) {
+    #colophon .social-icon{
+        padding-right: 41px;
+    }
+}
 @media only screen and (min-width:768px) and (max-width:959px) {
 .container {
     width:768px;
@@ -919,8 +924,10 @@ ul#lang-select-popup{
 }
 #masthead .social-icon a.myspace,
 #masthead .social-icon a.yelp,
+#masthead .social-icon a.ello,
 #colophon .social-icon a.myspace,
-#colophon .social-icon a.yelp {
+#colophon .social-icon a.yelp,
+#colophon .social-icon a.ello {
     background-image:url(images/social.png);
 }
 #masthead .social-icon a:hover, #masthead .social-icon a:active,
@@ -934,6 +941,11 @@ ul#lang-select-popup{
 #masthead .social-icon a.yelp,
 #colophon .social-icon a.yelp {
     background-position:-435px 0;
+}
+
+#masthead .social-icon a.ello,
+#colophon .social-icon a.ello {
+    background-position: -466px 0;
 }
 
 .social-icon>a>i{color:#fff;background: #333333; border-radius: 50%; padding: 5.5px; margin:1px; width: 17px; height: 17px; text-align: center; font-size: 17px;}
@@ -1498,7 +1510,8 @@ header.post-header .post-title a {
 #page .container #secondary .widget h3.widget-title, #page .container #secondary .widget h1.widget-title {
     border-bottom:2px solid #f15a23;
     padding:0 0 10px 0;
-    margin:0 0 20px 0
+    margin:0 0 20px 0;
+    font-size: 18px;
 }
 #page .container #secondary .widget ul {
     float:left;

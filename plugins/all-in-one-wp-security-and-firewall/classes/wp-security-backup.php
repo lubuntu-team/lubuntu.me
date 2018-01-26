@@ -277,7 +277,7 @@ class AIOWPSecurity_Backup
         if($aio_wp_security->configs->get_value('aiowps_enable_automated_backups')=='1')
         {
             $aio_wp_security->debug_logger->log_debug_cron("DB Backup - Scheduled backup is enabled. Checking if a backup needs to be done now...");
-            $time_now = date_i18n( 'Y-m-d H:i:s' );
+            $time_now = current_time( 'mysql' );
             $current_time = strtotime($time_now);
             $backup_frequency = $aio_wp_security->configs->get_value('aiowps_db_backup_frequency'); //Number of hours or days or months interval per backup
             $interval_setting = $aio_wp_security->configs->get_value('aiowps_db_backup_interval'); //Hours/Days/Months
@@ -330,9 +330,6 @@ class AIOWPSecurity_Backup
 
     function aiowps_scheduled_db_cleanup_handler()
     {
-        global $aio_wp_security;
-
-        $aio_wp_security->debug_logger->log_debug_cron("DB Cleanup - checking if a cleanup needs to be done now...");
         //Check the events table because this can grow quite large especially when 404 events are being logged
         $events_table_name = AIOWPSEC_TBL_EVENTS;
         $max_rows_event_table = '5000'; //Keep a max of 5000 rows in the events table

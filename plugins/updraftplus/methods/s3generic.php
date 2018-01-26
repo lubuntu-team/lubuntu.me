@@ -4,53 +4,108 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 
 require_once(UPDRAFTPLUS_DIR.'/methods/s3.php');
 
-# Migrate options to new-style storage - Jan 2014
-if (!is_array(UpdraftPlus_Options::get_updraft_option('updraft_s3generic')) && '' != UpdraftPlus_Options::get_updraft_option('updraft_s3generic_login', '')) {
-	$opts = array(
-		'accesskey' => UpdraftPlus_Options::get_updraft_option('updraft_s3generic_login'),
-		'secretkey' => UpdraftPlus_Options::get_updraft_option('updraft_s3generic_pass'),
-		'path' => UpdraftPlus_Options::get_updraft_option('updraft_s3generic_remote_path'),
-		'endpoint' => UpdraftPlus_Options::get_updraft_option('updraft_s3generic_endpoint')
-	);
-	UpdraftPlus_Options::update_updraft_option('updraft_s3generic', $opts);
-	UpdraftPlus_Options::delete_updraft_option('updraft_s3generic_login');
-	UpdraftPlus_Options::delete_updraft_option('updraft_s3generic_pass');
-	UpdraftPlus_Options::delete_updraft_option('updraft_s3generic_remote_path');
-	UpdraftPlus_Options::delete_updraft_option('updraft_s3generic_endpoint');
-}
-
+/**
+ * Converted to multi-options (Feb 2017-) and previous options conversion removed: Yes
+ */
 class UpdraftPlus_BackupModule_s3generic extends UpdraftPlus_BackupModule_s3 {
 
 	protected function set_region($obj, $region = '', $bucket_name = '') {
 		$config = $this->get_config();
-		$endpoint = ($region != '' && $region != 'n/a') ? $region : $config['endpoint'];
+		$endpoint = ('' != $region && 'n/a' != $region) ? $region : $config['endpoint'];
+		$log_message = "Set endpoint: $endpoint";
+		if (is_string($endpoint) && preg_match('/^(.*):(\d+)$/', $endpoint, $matches)) {
+			$endpoint = $matches[1];
+			$port = $matches[2];
+			$log_message .= ", port=$port";
+			$obj->setPort($port);
+		}
 		global $updraftplus;
-		if ($updraftplus->backup_time) $updraftplus->log("Set endpoint: $endpoint");
+		if ($updraftplus->backup_time) $updraftplus->log($log_message);
 		$obj->setEndpoint($endpoint);
 	}
 
-	public function get_credentials() {
-		return array('updraft_s3generic');
+	/**
+	 * This method overrides the parent method and lists the supported features of this remote storage option.
+	 *
+	 * @return Array - an array of supported features (any features not mentioned are asuumed to not be supported)
+	 */
+	public function get_supported_features() {
+		// This options format is handled via only accessing options via $this->get_options()
+		return array('multi_options', 'config_templates', 'multi_storage');
 	}
 
+	/**
+	 * Retrieve default options for this remote storage module.
+	 *
+	 * @return Array - an array of options
+	 */
+	public function get_default_options() {
+		return array(
+			'accesskey' => '',
+			'secretkey' => '',
+			'path' => '',
+			'endpoint' => '',
+		);
+	}
+
+	/**
+	 * Retrieve specific options for this remote storage module
+	 *
+	 * @return Array - an array of options
+	 */
 	protected function get_config() {
-		global $updraftplus;
-		$opts = $updraftplus->get_job_option('updraft_s3generic');
-		if (!is_array($opts)) $opts = array('accesskey' => '', 'secretkey' => '', 'path' => '');
+		$opts = $this->get_options();
 		$opts['whoweare'] = 'S3';
 		$opts['whoweare_long'] = __('S3 (Compatible)', 'updraftplus');
 		$opts['key'] = 's3generic';
 		return $opts;
 	}
 
-	public function config_print() {
+	/**
+	 * Get the pre configuration template
+	 *
+	 * @return String - the template
+	 */
+	public function get_pre_configuration_template() {
+		$this->get_pre_configuration_template_engine('s3generic', 'S3', __('S3 (Compatible)', 'updraftplus'), 'S3', '', '');
+	}
+
+	/**
+	 * Get the configuration template
+	 *
+	 * @return String - the template, ready for substitutions to be carried out
+	 */
+	public function get_configuration_template() {
 		// 5th parameter = control panel URL
 		// 6th = image HTML
-		$this->config_print_engine('s3generic', 'S3', __('S3 (Compatible)', 'updraftplus'), 'S3', '', '', true);
+		return $this->get_configuration_template_engine('s3generic', 'S3', __('S3 (Compatible)', 'updraftplus'), 'S3', '', '');
+	}
+	
+	/**
+	 * Modifies handerbar template options
+	 * The function require because It should override parent class's UpdraftPlus_BackupModule_s3::transform_options_for_template() functionality with no operation.
+	 *
+	 * @param array $opts
+	 * @return array - Modified handerbar template options
+	 */
+	public function transform_options_for_template($opts) {
+		return $opts;
+	}
+	
+	/**
+	 * Get handlebar partial template string for endpoint of s3 compatible remote storage method. Other child class can extend it.
+	 *
+	 * @return string the partial template string
+	 */
+	protected function get_partial_configuration_template_for_endpoint() {
+		return '<tr class="'.$this->get_css_classes().'">
+					<th>'.sprintf(__('%s end-point', 'updraftplus'), 'S3').'</th>
+					<td>
+						<input data-updraft_settings_test="endpoint" type="text" style="width: 360px" '.$this->output_settings_field_name_and_id('endpoint', true).' value="{{endpoint}}" />
+				</tr>';
 	}
 
 	public function credentials_test($posted_settings) {
 		$this->credentials_test_engine($this->get_config(), $posted_settings);
 	}
-
 }

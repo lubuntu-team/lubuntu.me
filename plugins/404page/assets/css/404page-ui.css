@@ -1,0 +1,126 @@
+#pp-404page-settings h1 {
+  margin-bottom: 40px;
+}
+
+#pp-plugin-info-404page {
+  min-height: 48px; 
+  line-height: 48px; 
+  vertical-align: middle; 
+  padding-left: 60px; 
+  background-repeat: no-repeat; 
+  background-position: left center;
+}
+
+.rtl #pp-plugin-info-404page {
+  padding-left: 0;
+  padding-right: 60px;
+  background-position: right center;
+}
+
+#pp-plugin-info-404page span {
+  float: right; 
+  padding-left: 50px;
+}
+
+.rtl #pp-plugin-info-404page span {
+  float: left; 
+  padding-left: 0;
+  padding-right: 50px;
+}
+
+#pp-plugin-info-404page .dashicons {
+  vertical-align: middle; 
+}
+
+#select404page {
+  width: 100%; 
+}
+
+#pp-404page-settings .form-table th, .form-table td {
+  display: block;
+  width: auto;
+}
+
+#pp-404page-settings .form-table th {
+  padding: 0;
+  font-weight: normal;
+}
+
+#pp-404page-settings .form-table td {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+#pp-404page-settings .form-table td p {
+  padding: 0;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+#pp-seetings-advanced .form-table th {
+  display: none;
+}
+
+#pp-404page-settings input[type="checkbox"] {
+	display: none;
+}
+
+#pp-404page-settings input[type="checkbox"] + label.check {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 80px;
+	height: 40px;
+	background: grey;
+	display: block;
+	border-radius: 40px;
+	position: relative;
+  float: left;
+  margin-right: 40px;
+}
+
+.rtl #pp-404page-settings input[type="checkbox"] + label.check {
+  float: right;
+  margin-left: 40px;
+  margin-right: 0;
+}
+
+#pp-404page-settings input[type="checkbox"]:disabled + label.check {
+  background-color: #DDD;
+}
+
+#pp-404page-settings input[type="checkbox"] + label.check:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	width: 30px;
+	height: 30px;
+	background: #fff;
+	border-radius: 30px;
+	transition: 0.3s;
+}
+
+body:not(.rtl) #pp-404page-settings input[type="checkbox"] + label.check:after, .rtl #pp-404page-settings input[type="checkbox"]:enabled:checked + label.check:after {
+  left: 5px;
+  transform: none;
+}
+
+#pp-404page-settings input[type="checkbox"]:enabled:checked + label.check {
+  background: #104060;
+}
+
+body:not(.rtl) #pp-404page-settings input[type="checkbox"]:enabled:checked + label.check:after, .rtl #pp-404page-settings input[type="checkbox"] + label.check:after {
+  left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+#pp-404page-settings select {
+  border: 1px solid #104060;
+  border-radius:5px;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px 0;
+}
+
+#pp-404page-settings .dashicons-warning, #pp-404page-settings input[type="checkbox"] + label.check.warning:before {
+  color: #d54e21;
+}

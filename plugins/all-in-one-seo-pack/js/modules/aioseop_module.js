@@ -72,7 +72,7 @@ function countChars( field, cntfield ) {
 		cntfield.style.color = "#fff";
 		cntfield.style.backgroundColor = "#f00";
 	} else {
-		if ( cntfield.value > ( field_size - 6 ) ) {
+		if ( cntfield.value > ( field_size - 91 ) ) {
 			cntfield.style.color = "#515151";
 			cntfield.style.backgroundColor = "#ff0";
 		} else {
@@ -242,29 +242,98 @@ jQuery( document ).ready(function() {
 			aioseop_do_condshow( aiosp_data.condshow );
 		}
 	}
+
+	/**
+     * Turns on image checker on custom url change.
+     * @since 2.3.16
+     */
+	jQuery( '.aioseop_upload_image_label' ).on( 'change', function() {
+		this.checker = jQuery( this ).parent().find( '.aioseop_upload_image_checker' );
+		if ( this.checker.length > 0 ) {
+			this.checker.val( 1 );
+		}
+	} );
 });
 
 /**
- * @since 1.0.0
- * @return boolean.
+ * @summary Custom jQuery plugin that enables image uploader in wordpress.
+ * 
+ * @since 2.3.13
+ * @since 2.4.14 Added success callback and options.
+ * @see http://www.webmaster-source.com/2013/02/06/using-the-wordpress-3-5-media-uploader-in-your-plugin-or-theme/
+ *
+ * @param object options Plugin options.
  */
-jQuery( document ).ready(function() {
-	var image_field;
-	jQuery( '.aioseop_upload_image_button' ).click(function() {
-		window.send_to_editor = aioseopNewSendToEditor;
-		image_field = jQuery( this ).next();
-		formfield = image_field.attr( 'name' );
-		tb_show( '', 'media-upload.php?type=image&amp;TB_iframe=true' );
-		return false;
-	});
-	aioseopStoreSendToEditor 	= window.send_to_editor;
-	aioseopNewSendToEditor		= function(html) {
-		imgurl = jQuery( 'img',html ).attr( 'src' );
-		if ( typeof( imgurl ) !== undefined )
-			image_field.val( imgurl );
-		tb_remove();
-		window.send_to_editor = aioseopStoreSendToEditor;
-	};
+jQuery.fn.aioseopImageUploader = function( options ) {
+    // Keep reference to this.
+    var self = this;
+
+    // Options
+    self.options = jQuery.extend({
+        success: undefined,
+    }, options);
+
+    // Set input target when to update image url value
+    self.target = jQuery( self ).next();
+
+    // Uploader per image button
+    // * Having only one uploader was causing problems when multiple image buttons where in place
+    self.uploader = wp.media({
+        title: 'Choose Image',
+        button: {
+            text: 'Choose Image'
+        },
+        multiple: false
+    });
+
+    /**
+     * Event handler that will be called when an image is selected from media uploader.
+     */
+    self.onSelect = function() {
+        var url = self.uploader.state().get( 'selection' ).first().toJSON().url;
+        if ( self.target.length >= 0 )
+            jQuery( self.target ).val( url );
+        if ( self.options.success !== undefined )
+            self.options.success( url, self );
+    }
+
+    /**
+     * Click event handler.
+     * @param object e Click event.
+     */
+    self.onClick = function( e ) {
+        e.preventDefault();
+        self.uploader.open();
+    }
+
+    //Set uploader select handler
+    self.uploader.on( 'select', self.onSelect );
+
+    // Set click handler
+    jQuery( self ).click( self.onClick );
+};
+
+/**
+ * @summary Javascript for using WP media uploader. Indentifies which DOM should use custom uploader plugin.
+ *
+ * @see http://www.webmaster-source.com/2013/02/06/using-the-wordpress-3-5-media-uploader-in-your-plugin-or-theme/
+ * @since ?
+ * @since 2.3.11.2 Use WP 3.5 new media uploader
+ * @since 2.3.13 Fixed issue #[740](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/740)
+ *
+ */
+jQuery(document).ready(function($){
+
+    jQuery( '.aioseop_upload_image_button' ).each(function() {
+        jQuery( this ).aioseopImageUploader({
+            success: function( url, el ) {
+                // Update checker
+                if ( jQuery( el ).prev().length > 0 )
+                    jQuery( el ).prev().val( 1 );
+            },
+        });
+    });
+
 });
 
 /**

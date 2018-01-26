@@ -1,5 +1,5 @@
 <?php
-// Copyright 2014 RealFaviconGenerator
+// Copyright 2014-2016 RealFaviconGenerator
 ?>
 
 <div class="wrap">
@@ -15,7 +15,7 @@
 		<p>
 			<?php _e( 'Favicon installed!', FBRFG_PLUGIN_SLUG ) ?>
 			<span id="rank_notice" style="display:none">
-				<?php printf( __( 'Do you like the result? If so, would you like to <a %s>rate the plugin</a>?', FBRFG_PLUGIN_SLUG ), 
+				<?php printf( __( 'Do you like the result? If so, would you like to <a %s>rate the plugin</a>?', FBRFG_PLUGIN_SLUG ),
 					'target="_blank" href="https://wordpress.org/support/view/plugin-reviews/favicon-by-realfavicongenerator"' ) ?>
 			</span>
 		</p>
@@ -24,11 +24,15 @@
 
 	<div id="install_completed_container" style="display:none">
 		<h3><?php _e( 'Current favicon', FBRFG_PLUGIN_SLUG ) ?></h3>
+
+		<?php include_once( plugin_dir_path(__FILE__) . DIRECTORY_SEPARATOR .
+			'keep_active_notice.php' ); ?>
+		
 		<p><?php _e( 'The favicon is up and ready.', FBRFG_PLUGIN_SLUG ) ?></p>
 		<img id="preview_image">
 
 		<p>
-			<?php printf( __( '<a %s>Check your favicon</a> with RealFaviconGenerator\'s favicon checker.', FBRFG_PLUGIN_SLUG ), 
+			<?php printf( __( '<a %s>Check your favicon</a> with RealFaviconGenerator\'s favicon checker.', FBRFG_PLUGIN_SLUG ),
 				'id="checker_link" class="button-primary" href="#"' ) ?>
 			<?php _e( 'This option works only if your site is accessible from the outside.', FBRFG_PLUGIN_SLUG ) ?>
 		</p>
@@ -37,11 +41,13 @@
 	<h3><?php _e( 'Current favicon', FBRFG_PLUGIN_SLUG ) ?></h3>
 
 <?php 	if ( $favicon_configured) { ?>
+	<?php include_once( plugin_dir_path(__FILE__) . DIRECTORY_SEPARATOR .
+		'keep_active_notice.php' ); ?>
 	<p><?php _e( 'The favicon is up and ready.', FBRFG_PLUGIN_SLUG ) ?></p>
 <?php 	} else { ?>
 	<p><?php _e( 'No favicon has been configured yet.', FBRFG_PLUGIN_SLUG ) ?></p>
 <?php 	} ?>
-	
+
 <?php 	if ( $favicon_configured ) {
 			if ( $preview_url ) { ?>
 
@@ -51,7 +57,7 @@
 	<p>
 		<?php printf( __( '<a %s>Check your favicon</a> with RealFaviconGenerator\'s favicon checker.', FBRFG_PLUGIN_SLUG ),
 			'class="button-primary" ' .
-			'href="http://realfavicongenerator.net/favicon_checker?site=' . urlencode( home_url() ) . ($favicon_in_root ? '' : '&ignore_root_issues=on') . '"' ) ?>
+			'href="https://realfavicongenerator.net/favicon_checker?site=' . urlencode( home_url() ) . ($favicon_in_root ? '' : '&ignore_root_issues=on') . '"' ) ?>
 		<?php _e( 'This option works only if your site is accessible from the outside.', FBRFG_PLUGIN_SLUG ) ?>
 	</p>
 <?php
@@ -63,7 +69,7 @@
 <?php if ( $favicon_configured || $new_favicon_params_url ) { ?>
 	<p><?php _e( 'You can replace the existing favicon.', FBRFG_PLUGIN_SLUG ) ?></p>
 <?php } ?>
-		<form role="form" method="post" action="http://realfavicongenerator.net/api/favicon_generator" id="favicon_form">
+		<form role="form" method="post" action="https://realfavicongenerator.net/api/favicon_generator" id="favicon_form">
 			<input type="hidden" name="json_params" id="json_params"/>
 			<table class="form-table"><tbody>
 				<tr valign="top">
@@ -94,7 +100,7 @@
 							<?php _e( 'The plugin always stores the favicon files in a dedicated directory.', FBRFG_PLUGIN_SLUG ) ?>
 							<br>
 							<?php _e( 'However, if this option is enabled, the plugin takes advantage of the permalink feature and the favicon files appear to be in the root directory', FBRFG_PLUGIN_SLUG ) ?>
-							(<a href="http://realfavicongenerator.net/faq#why_icons_in_root"><?php _e( 'recommended', FBRFG_PLUGIN_SLUG ) ?></a>)
+							(<a href="https://realfavicongenerator.net/faq#why_icons_in_root"><?php _e( 'recommended', FBRFG_PLUGIN_SLUG ) ?></a>)
 						</p>
 					</td>
 				</tr>
@@ -111,7 +117,7 @@
 
 <script type="text/javascript">
 	var picData = null;
-	
+
 	function urlToBase64(url, callback) {
 		var img = new Image();
 		img.onload = function() {
@@ -145,13 +151,13 @@
 	}
 
 	function computeJson() {
-		var params = { favicon_generation: { 
+		var params = { favicon_generation: {
 			callback: {},
 			master_picture: {},
 			files_location: {},
 			api_key: "87d5cd739b05c00416c4a19cd14a8bb5632ea563"
 		}};
-		
+
 		if (jQuery('#master_picture_url').val().length <= 0) {
 			params.favicon_generation.master_picture.type = "no_picture";
 			params.favicon_generation.master_picture.demo = true;
@@ -179,7 +185,7 @@
 <?php } ?>
 
 		params.favicon_generation.callback.type = 'url';
-		params.favicon_generation.callback.url = "<?php echo admin_url('themes.php?page=' . ( ( isset( $_REQUEST['page'] ) ) 
+		params.favicon_generation.callback.url = "<?php echo admin_url('themes.php?page=' . ( ( isset( $_REQUEST['page'] ) )
 			? $_REQUEST['page']
 			: 'favicon-by-realfavicongenerator/admin/class-favicon-by-realfavicongenerator-admin.phpfavicon_appearance_menu' ) ) ?>";
 		params.favicon_generation.callback.short_url = 'true';
@@ -226,7 +232,7 @@
 		json_result_url: '<?php echo $new_favicon_params_url ?>'
 	};
 <?php } ?>
-	
+
 	jQuery(document).ready(function() {
 		jQuery('#favicon_form').submit(function(e) {
 			jQuery('#json_params').val(JSON.stringify(computeJson()));
@@ -237,7 +243,7 @@
 			.done(function(response) {
 				if (response.status == 'success') {
 					jQuery('#preview_image').attr('src', response.preview_url);
-					var checkerUrl = "http://realfavicongenerator.net/favicon_checker?site=<?php echo urlencode( home_url() ) ?>" + 
+					var checkerUrl = "https://realfavicongenerator.net/favicon_checker?site=<?php echo urlencode( home_url() ) ?>" +
 						(response.favicon_in_root ? '' : '&ignore_root_issues=on');
 					jQuery('#checker_link').attr('href', checkerUrl);
 					jQuery('#install_in_progress_message').fadeOut(function() {
@@ -274,15 +280,15 @@
 <?php } ?>
 
 		var fileFrame;
-	 
+
 		jQuery('#upload_image_button').live('click', function(event) {
 			event.preventDefault();
-	 
+
 			if (fileFrame) {
 				fileFrame.open();
 				return;
 			}
-		 
+
 			// Create the media frame.
 			fileFrame = wp.media.frames.file_frame = wp.media({
 				title: jQuery(this).data('uploader_title'),
@@ -291,13 +297,13 @@
 				},
 				multiple: false
 			});
-		 
+
 			fileFrame.on('select', function() {
 				attachment = fileFrame.state().get('selection').first().toJSON();
 				jQuery('#master_picture_url').val(attachment.url);
 				prepareInlinePicture(attachment.url);
 			});
-		 
+
 			fileFrame.open();
 		});
 

@@ -57,12 +57,18 @@ class Dropbox_Encrypter
     {
 
         // Encryption: we always use phpseclib for this
-
         global $updraftplus;
-        $updraftplus->ensure_phpseclib('Crypt_AES', 'Crypt/AES');
+        $ensure_phpseclib = $updraftplus->ensure_phpseclib('Crypt_AES', 'Crypt/AES');
+        
+        if (is_wp_error($ensure_phpseclib)) {
+            $updraftplus->log("Failed to load phpseclib classes (".$ensure_phpseclib->get_error_code()."): ".$ensure_phpseclib->get_error_message());
+            $updraftplus->log("Failed to load phpseclib classes (".$ensure_phpseclib->get_error_code()."): ".$ensure_phpseclib->get_error_message(), 'error');
+            return false;
+        }
+        
         $updraftplus->ensure_phpseclib('Crypt_Rijndael', 'Crypt/Rijndael');
 
-        if (!function_exists('crypt_random_string')) require_once(UPDRAFTPLUS_DIR.'/includes/phpseclib/Crypt/Random.php');
+        if (!function_exists('crypt_random_string')) require_once(UPDRAFTPLUS_DIR.'/vendor/phpseclib/phpseclib/phpseclib/Crypt/Random.php');
         
         $iv = crypt_random_string(self::IV_SIZE);
         
@@ -93,6 +99,7 @@ class Dropbox_Encrypter
         $cipherText = substr($cipherText, self::IV_SIZE);
     
         if (function_exists('mcrypt_decrypt')) {
+            // @codingStandardsIgnoreLine
             $token = @mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key, $cipherText, MCRYPT_MODE_CBC, $iv);
         } else {
             global $updraftplus;

@@ -6,6 +6,12 @@ We have created a theme based on our necessities and experience, we will be glad
 Our code is hand-made, so if you find a bug or have a wish to modify something, feel free to send us your feedback.
 We want to make our product even better and better and we need users support and feedbacks.
 
+Works perfect with WooCommerce till version 3.0. 
+
+Fruitful PRO – WordPress responsive theme contains all the options of FREE version plus more options like ability to change width for container grid and support latest WooCommerce version. 
+
+Find all the details by link https://fruitfulcode.com/product/fruitful-pro
+
 Thank you.
 
 -------------------------------------------------------
@@ -101,6 +107,41 @@ Files: .pot, ru_Ru.po, ru_Ru.mo icluded. Default language is english.
 -------------------------------------------------------
     Changelog
 -------------------------------------------------------
+= 3.5 =
+19.10.2017
+
+* Bug fix: Woocommerce lightbox function error
+* Bug fix: Updating WooCommerce templates version
+* Update: ELEMENTOR_PARTNER_ID
+* New: add Elementor support
+* Bug fix: Woccommerce update problem
+* Bug fix: Theme check errors
+* Update: Dummy Data update
+* Bug fix: Fixed back-top icon 
+
+= 3.4 =
+21.07.2017 
+
+* Added: Social icon Ello.co
+* Bug fix: Mobile menu
+* Bug fix: Empty Favicon Tags
+* Bug fix: Menu conflict with the plugin Woocommerce Catalog Enquiry
+* Bug fix: Menu conflict with the plugin Woocommerce Catalog Enquiry
+* Bug fix: Button doesn't change the color on cart page
+* Bug fix: Add menu item - bug fix css
+* Bug fix: Add slider images to xml, fix css h3 font-size
+* Bug fix: Viewport content and fix bug on Ipad
+* Bug fix: Customizer capability fix
+* Bug fix: Not sizing properly in landscape view on iPad
+* Bug fix: Woocommerce 3.0.0 select2.js
+* Bug fix: Sprintf() bug on install plugins
+* Improvement: Thumbnails for fullwidth posts
+* Improvement: Outdated copies of WooCommerce template file
+* Update: Timeout for page reload
+* Update: Mobile dropdowm menu
+* Update: Demo content
+* Update: Proceed to checkout button styles
+* Update: Slider layout settings update
 
 = 3.3.1 =
 26.04.2016 

@@ -1,12 +1,13 @@
 <?php
-// Copyright 2014 RealFaviconGenerator
+// Copyright 2014-2016 RealFaviconGenerator
 
 // If uninstall not called from WordPress, then exit
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-require_once plugin_dir_path( __FILE__ ) . 'public/class-favicon-by-realfavicongenerator-common.php';
+require_once plugin_dir_path( __FILE__ ) . 'public' . DIRECTORY_SEPARATOR .
+	'class-favicon-by-realfavicongenerator-common.php';
 
 function fbrfg_clean_site_instance() {
 	// Remove options

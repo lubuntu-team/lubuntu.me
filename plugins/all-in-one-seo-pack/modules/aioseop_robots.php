@@ -246,7 +246,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				$access = ( get_option( 'blog_public' ) ) ? 'allow' : 'block';
 				if ( $access ) {
 					global $aioseop_options;
-					$sitemap_url      = '';
+					$sitemapurl      = '';
 					$sitemap_filename = $this->get_sitemap_filename();
 					if ( $sitemap_filename ) {
 						$sitemapurl = trailingslashit( get_home_url() ) . $sitemap_filename . '.xml';

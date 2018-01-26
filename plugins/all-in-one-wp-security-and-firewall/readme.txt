@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, wpsolutions, Peter Petreski, Ruhul Amin, mbrso
 Donate link: https://www.tipsandtricks-hq.com
 Tags: security, secure, Anti Virus, antivirus, ban, ban hacker, virus, firewall, firewall security, login, lockdown, htaccess, hack, malware, vulnerability, protect, protection, phishing, database, backup, plugin, sql injection, ssl, restrict, login captcha, bot, hotlink, 404 detection, admin, rename, all in one, scan, scanner, iframe,
 Requires at least: 3.5
-Tested up to: 4.6
-Stable tag: 4.2.3
+Tested up to: 4.9
+Stable tag: 4.3.1
 License: GPLv3
 
 A comprehensive, user-friendly, all in one WordPress security and firewall plugin for your site.
@@ -56,10 +56,11 @@ via email whenever somebody gets locked out due to too many login attempts.
 
 = User Registration Security =
 * Enable manual approval of WordPress user accounts. If your site allows people to create their own accounts via the WordPress registration form, then you can minimize SPAM or bogus registrations by manually approving each registration.
-* Ability to add captcha to the WordPress user registration page to protect you from spam user registration.
+* Ability to add captcha to the WordPress's user registration page to protect you from spam user registration.
+* Ability to add Honeypot to the WordPress's user registration form to reduce registration attempts by robots.
 
 = Database Security =
-* Easily the default WP prefix to a value of your choice with the click of a button.
+* Easily set the default WP prefix to a value of your choice with the click of a button.
 * Schedule automatic backups and email notifications or make an instant DB backup whenever you want with one click.
 
 = File System Security =
@@ -182,6 +183,58 @@ https://www.tipsandtricks-hq.com/wordpress-security-and-firewall-plugin
 None
 
 == Changelog ==
+
+= 4.3.1 =
+- Improved white list directives to cater for Apache 2.4 and earlier versions.
+- Added 3 filters for the manual account registration approval email: aiowps_register_approval_email_subject, aiowps_register_approval_email_msg, aiowps_register_approval_email_from_name
+- Added configuration option to allow custom firewall rules to be applied at beginning of all rules applied by aiowps.
+- Changed record insertions to DB table aiowps_failed_logins to store the full IP address instead of IP range.
+
+= 4.3.0 =
+- Updated wp-security-rename-login-feature.php to include latest WordPress core changes.
+- Added captcha for woocommerce login and registration forms.
+- Fixed "mixed line endings" warnings for whois library.
+- Moved DB cleanup task cron job from daily to hourly.
+- Updated the reapply htaccess function so it doesn't create the header already sent error.
+
+= 4.2.9 =
+- Changed the parameter in current_user_can function to use an administrator capability instead of the "administrator" role name.
+- Added some new hooks to the AIOWPSecurity_WP_Loaded_Tasks called aiowps_wp_loaded_tasks_start and aiowps_wp_loaded_tasks_end.
+- Improved get_locked_ips() function and added $wpdb->prepare statement.
+- Added more missing translation domain parameters for translatable strings in the rename login page.
+- Deleted local copy of the Persian and Italian language files. These translations are available on translate.wordpress.org.
+- Domain path and text domain added to plugin header.
+- Changed the get_user_ip_address functions so that $_SERVER['REMOTE_ADDR'] is the primary method used to obtain IP address.
+- Added enumeration block via REST API (wp >= 4.7)
+
+= 4.2.8 =
+- Improved "User Registration" feature to bypass the pending approval status for new users created in admin side.
+- Fixed bug in whois library.
+- Added translation domain parameter for translatable strings in the rename login page.
+- Updated the chinese language file.
+
+= 4.2.7 =
+- The PHPWhois library updated to their latest version to include a security patch.
+
+= 4.2.6 =
+- Added new Login Lockdown whitelist feature which allows immunity for IP address or ranges from being locked by the lockdown feature.
+- Fixed bug - Replaced date_i18n with current_time to prevent cases where some localizations produce foreign characters in date stamp output.
+- Added a new feature to add Honeypot to the WordPress's user registration form (this can help reduce registration attempts by robots).
+- Added "Export to CSV" buttons for 404 Event Logs, Account Activity Logs and Failed Login Records.
+- Minor update to 6G rules.
+- Minor spelling and wording fixes and changes.
+
+= 4.2.5 =
+- Fixed bug - added code which caters for mysql view definitions when DB prefix is changed.
+- Fixed a typo in the user login security menu.
+- Fixed storage of time stamp in lockdown table to match the local Wordpress server time and be consistent with the timestamp stored in the failed logins table.
+- Prevent direct access to wp-security-core.php
+- Updated the POT file.
+
+= 4.2.4 =
+- Fix error on block_ip_if_locked(), doesn't exit with a wp_user. This is needed for other plugins that create the $user (aka ldap auth plugins).
+- Fix login error message for users with pending account approval.
+- Wordpress 4.7 compatibility.
 
 = 4.2.3 =
 - Fixed bug when math captcha was displayed on Woocommerce registration page.

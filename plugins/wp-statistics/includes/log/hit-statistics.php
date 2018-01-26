@@ -1,193 +1,179 @@
 <script type="text/javascript">
-	jQuery( document ).ready( function() {
-		postboxes.add_postbox_toggles( pagenow );
-	} );
+    jQuery(document).ready(function () {
+        postboxes.add_postbox_toggles(pagenow);
+    });
 </script>
 <div class="wrap">
-	<?php screen_icon('options-general'); ?>
-	<h2><?php _e( 'Hit Statistics', 'wp_statistics' ); ?></h2>
-
+    <h2><?php _e( 'Hit Statistics', 'wp-statistics' ); ?></h2>
 	<?php
-		$daysToDisplay = 20;
-		if( array_key_exists( 'hitdays',$_GET ) ) { $daysToDisplay = intval( $_GET['hitdays'] ); }
+	$daysToDisplay = 20;
+	if ( array_key_exists( 'hitdays', $_GET ) ) {
+		$daysToDisplay = intval( $_GET['hitdays'] );
+	}
 
-		if( array_key_exists( 'rangestart', $_GET ) ) { $rangestart = $_GET['rangestart']; } else { $rangestart = ''; }
-		if( array_key_exists( 'rangeend', $_GET ) ) { $rangeend = $_GET['rangeend']; } else { $rangeend = ''; }
+	if ( array_key_exists( 'rangestart', $_GET ) ) {
+		$rangestart = $_GET['rangestart'];
+	} else {
+		$rangestart = '';
+	}
+	if ( array_key_exists( 'rangeend', $_GET ) ) {
+		$rangeend = $_GET['rangeend'];
+	} else {
+		$rangeend = '';
+	}
 
-		list( $daysToDisplay, $rangestart_utime, $rangeend_utime ) = wp_statistics_date_range_calculator( $daysToDisplay, $rangestart, $rangeend );
+	list( $daysToDisplay, $rangestart_utime, $rangeend_utime ) = wp_statistics_date_range_calculator(
+		$daysToDisplay,
+		$rangestart,
+		$rangeend
+	);
 
-		wp_statistics_date_range_selector( WP_STATISTICS_HITS_PAGE, $daysToDisplay );
+	wp_statistics_date_range_selector( WP_Statistics::$page['hits'], $daysToDisplay );
+
+	$visit_total   = 0;
+	$visitor_total = 0;
+	$daysInThePast = (int) ( ( time() - $rangeend_utime ) / 86400 );
+	$visitors      = array();
+	$visits        = array();
+
+	for ( $i = $daysToDisplay; $i >= 0; $i -- ) {
+		$stat        = wp_statistics_visit( '-' . (int) ( $i + $daysInThePast ), true );
+		$visit_total += $stat;
+		$visits[]    = $stat;
+	}
+
+	for ( $i = $daysToDisplay; $i >= 0; $i -- ) {
+		$stat          = wp_statistics_visitor( '-' . (int) ( $i + $daysInThePast ), true );
+		$visitor_total += $stat;
+		$visitors[]    = $stat;
+	}
+
+	for ( $i = $daysToDisplay; $i >= 0; $i -- ) {
+		$date[] = "'" . $WP_Statistics->Real_Current_Date( 'M j', '-' . $i, $rangeend_utime ) . "'";
+	}
 	?>
+    <div class="postbox-container" id="last-log">
+        <div class="metabox-holder">
+            <div class="meta-box-sortables">
+                <div class="postbox">
+					<?php $paneltitle = __( 'Hits Statistics Chart', 'wp-statistics' ); ?>
+                    <button class="handlediv" type="button" aria-expanded="true">
+						<span class="screen-reader-text"><?php printf(
+								__( 'Toggle panel: %s', 'wp-statistics' ),
+								$paneltitle
+							); ?></span>
+                        <span class="toggle-indicator" aria-hidden="true"></span>
+                    </button>
+                    <h2 class="hndle"><span><?php echo $paneltitle; ?></span></h2>
 
-	<div class="postbox-container" style="width: 100%; float: left; margin-right:20px">
-		<div class="metabox-holder">
-			<div class="meta-box-sortables">
-				<div class="postbox">
-					<div class="handlediv" title="<?php _e( 'Click to toggle', 'wp_statistics' ); ?>"><br /></div>
-					<h3 class="hndle"><span><?php _e( 'Hits Statistics Chart', 'wp_statistics' ); ?></span></h3>
-					<div class="inside">
-						<script type="text/javascript">
-						var visit_chart;
-						jQuery( document ).ready( function() {
-<?php
-								$visit_total = 0;
-								$visitor_total = 0;
-								$daysInThePast = ( time() - $rangeend_utime ) / 86400;
+                    <div class="inside">
+                        <canvas id="hit-stats" height="80"></canvas>
+                        <script>
+                            var ctx = document.getElementById("hit-stats").getContext('2d');
+                            var ChartJs = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: [<?php echo implode( ', ', $date ); ?>],
+                                    datasets: [
+										<?php if ( $WP_Statistics->get_option( 'visitors' ) ) { ?>
+                                        {
+                                            label: '<?php _e( 'Visitors', 'wp-statistics' ); ?>',
+                                            data: [<?php echo implode( ',', $visitors ); ?>],
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                            borderWidth: 1,
+                                            fill: true,
+                                        },
+										<?php } ?>
+										<?php if ( $WP_Statistics->get_option( 'visits' ) ) { ?>
+                                        {
+                                            label: '<?php _e( 'Visits', 'wp-statistics' ); ?>',
+                                            data: [<?php echo implode( ',', $visits ); ?>],
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            borderColor: 'rgba(54, 162, 235, 1)',
+                                            borderWidth: 1,
+                                            fill: true,
+                                        },
+										<?php } ?>
+                                    ]
+                                },
+                                options: {
+                                    responsive: true,
+                                    legend: {
+                                        position: 'bottom',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '<?php echo sprintf( __( 'Hits in the last %s days', 'wp-statistics' ), $daysToDisplay ); ?>'
+                                    },
+                                    tooltips: {
+                                        mode: 'index',
+                                        intersect: false,
+                                    },
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-								echo "var visit_data_line = [";
+    <div class="postbox-container" style="width: 100%; float: left; margin-right:20px">
+        <div class="metabox-holder">
+            <div class="meta-box-sortables">
+                <div class="postbox">
+					<?php $paneltitle = __( 'Hits Statistics Summary', 'wp-statistics' ); ?>
+                    <button class="handlediv" type="button" aria-expanded="true">
+						<span class="screen-reader-text"><?php printf(
+								__( 'Toggle panel: %s', 'wp-statistics' ),
+								$paneltitle
+							); ?></span>
+                        <span class="toggle-indicator" aria-hidden="true"></span>
+                    </button>
+                    <h2 class="hndle"><span><?php echo $paneltitle; ?></span></h2>
 
-								for( $i = $daysToDisplay; $i >= 0; $i-- ) {
-									$working_date = $WP_Statistics->Real_Current_Date( 'Y-m-d', '-' . $i, $rangeend_utime );
-									$stat = wp_statistics_visit( '-' . (int)( $i + $daysInThePast ), true );
-									$visit_total += $stat;
+                    <div class="inside">
+                        <table width="auto" class="widefat table-stats" id="summary-stats">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th class="th-center"><?php _e( 'Visits', 'wp-statistics' ); ?></th>
+                                <th class="th-center"><?php _e( 'Visitors', 'wp-statistics' ); ?></th>
+                            </tr>
 
-									echo "['" . $working_date . "'," . $stat . "], ";
-								}
+                            <tr>
+                                <th><?php _e( 'Chart Total', 'wp-statistics' ); ?>:</th>
+                                <th class="th-center"><span><?php echo number_format_i18n( $visit_total ); ?></span>
+                                </th>
+                                <th class="th-center"><span><?php echo number_format_i18n( $visitor_total ); ?></span>
+                                </th>
+                            </tr>
 
-								echo "];\n";
-
-								echo "var visitor_data_line = [";
-
-								for( $i = $daysToDisplay; $i >= 0; $i-- ) {
-									$working_date = $WP_Statistics->Real_Current_Date( 'Y-m-d', '-' . $i, $rangeend_utime );
-									$stat = wp_statistics_visitor( '-' . (int)( $i + $daysInThePast ), true );
-									$visitor_total += $stat;
-
-									echo "['" . $working_date . "'," . $stat . "], ";
-								}
-
-								echo "];\n";
-
-								$tickInterval = $daysToDisplay / 20;
-								if( $tickInterval < 1 ) { $tickInterval = 1; }
-?>
-							visit_chart = jQuery.jqplot( 'visits-stats', [visit_data_line, visitor_data_line], {
-								title: {
-									text: '<b>' + <?php echo json_encode( __( 'Hits in the last', 'wp_statistics' ) . ' ' . $daysToDisplay . ' ' . __( 'days', 'wp_statistics' ) ); ?> + '</b>',
-									fontSize: '12px',
-									fontFamily: 'Tahoma',
-									textColor: '#000000',
-									},
-								axes: {
-									xaxis: {
-											min: '<?php echo $WP_Statistics->Real_Current_Date( 'Y-m-d', '-'.$daysToDisplay, $rangeend_utime ); ?>',
-											max: '<?php echo $WP_Statistics->Real_Current_Date( 'Y-m-d', '-0', $rangeend_utime ); ?>',
-											tickInterval: '<?php echo $tickInterval; ?> day',
-											renderer:jQuery.jqplot.DateAxisRenderer,
-											tickRenderer: jQuery.jqplot.CanvasAxisTickRenderer,
-											tickOptions: {
-												angle: -45,
-												formatString:'%b %#d',
-												showGridline: false,
-												},
-										},
-									yaxis: {
-											min: 0,
-											padMin: 1.0,
-											label: <?php echo json_encode( __( 'Number of visits and visitors', 'wp_statistics' ) ); ?>,
-											labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer,
-											labelOptions: {
-												angle: -90,
-												fontSize: '12px',
-												fontFamily: 'Tahoma',
-												fontWeight: 'bold',
-											},
-										}
-									},
-								legend: {
-									show: true,
-									location: 's',
-									placement: 'outsideGrid',
-									labels: [<?php echo json_encode( __( 'Visit', 'wp_statistics' ) ); ?>, <?php echo json_encode( __( 'Visitor', 'wp_statistics' ) ); ?>],
-									renderer: jQuery.jqplot.EnhancedLegendRenderer,
-									rendererOptions:
-										{
-											numberColumns: 2,
-											disableIEFading: false,
-											border: 'none',
-										},
-									},
-								highlighter: {
-									show: true,
-									bringSeriesToFront: true,
-									tooltipAxes: 'xy',
-									formatString: '%s:&nbsp;<b>%i</b>&nbsp;',
-									tooltipContentEditor: tooltipContentEditor,
-								},
-								grid: {
-								 drawGridlines: true,
-								 borderColor: 'transparent',
-								 shadow: false,
-								 drawBorder: false,
-								 shadowColor: 'transparent'
-								},
-							} );
-
-							function tooltipContentEditor( str, seriesIndex, pointIndex, plot ) {
-								// display series_label, x-axis_tick, y-axis value
-								return plot.legend.labels[seriesIndex] + ", " + str;;
-							}
-
-							jQuery(window).resize(function() {
-								JQPlotVisitChartLengendClickRedraw()
-							});
-
-							function JQPlotVisitChartLengendClickRedraw() {
-								visit_chart.replot( {resetAxes: ['yaxis'] } );
-
-								jQuery('div[id="visits-stats"] .jqplot-table-legend').click( function() {
-									JQPlotVisitChartLengendClickRedraw();
-								});
-							}
-
-							jQuery('div[id="visits-stats"] .jqplot-table-legend').click( function() {
-								JQPlotVisitChartLengendClickRedraw()
-							});
-
-						});
-
-						</script>
-
-						<div id="visits-stats" style="height:500px;"></div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="postbox-container" style="width: 100%; float: left; margin-right:20px">
-		<div class="metabox-holder">
-			<div class="meta-box-sortables">
-				<div class="postbox">
-					<div class="handlediv" title="<?php _e( 'Click to toggle', 'wp_statistics' ); ?>"><br /></div>
-					<h3 class="hndle"><span><?php _e( 'Hits Statistics Summary', 'wp_statistics' ); ?></span></h3>
-					<div class="inside">
-						<table width="auto" class="widefat table-stats" id="summary-stats">
-							<tbody>
-								<tr>
-									<th></th>
-									<th class="th-center"><?php _e( 'Visit', 'wp_statistics' ); ?></th>
-									<th class="th-center"><?php _e( 'Visitor', 'wp_statistics' ); ?></th>
-								</tr>
-
-								<tr>
-									<th><?php _e('Chart Total', 'wp_statistics'); ?>:</th>
-									<th class="th-center"><span><?php echo number_format_i18n( $visit_total ); ?></span></th>
-									<th class="th-center"><span><?php echo number_format_i18n( $visitor_total ); ?></span></th>
-								</tr>
-
-								<tr>
-									<th><?php _e('All Time Total', 'wp_statistics'); ?>:</th>
-									<th class="th-center"><span><?php echo number_format_i18n( wp_statistics_visit( 'total' ) ); ?></span></th>
-									<th class="th-center"><span><?php echo number_format_i18n( wp_statistics_visitor( 'total', null, true ) ); ?></span></th>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <tr>
+                                <th><?php _e( 'All Time Total', 'wp-statistics' ); ?>:</th>
+                                <th class="th-center">
+                                    <span><?php echo number_format_i18n( wp_statistics_visit( 'total' ) ); ?></span>
+                                </th>
+                                <th class="th-center">
+									<span><?php echo number_format_i18n(
+											wp_statistics_visitor( 'total', null, true )
+										); ?></span>
+                                </th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
