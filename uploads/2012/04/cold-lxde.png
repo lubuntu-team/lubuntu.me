@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+	<title>Snowlinux</title>
+    <meta charset="UTF-8" />           
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+    <link rel="profile" href="http://gmpg.org/xfn/11" />        
+    <link rel="pingback" href="http://www.snowlinux.de/xmlrpc.php" />    
+    <link rel="alternate" type="application/rss+xml" title="Snowlinux &raquo; Feed" href="http://www.snowlinux.de/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Snowlinux &raquo; Kommentar-Feed" href="http://www.snowlinux.de/comments/feed/" />
+<link rel='stylesheet' id='franklin_source_sans-css'  href='//fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C700%2C900&#038;ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='franklin_open_sans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A400%2C600&#038;ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='franklin_bootstrap_css-css'  href='http://www.snowlinux.de/wp-content/themes/franklin/assets/css/bootstrap.min.css?ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='franklin_style-css'  href='http://www.snowlinux.de/wp-content/themes/franklin/style.css?ver=4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='custom-style-css'  href='http://www.snowlinux.de/wp-content/themes/franklin/assets/css/custom.css?ver=4.1' type='text/css' media='all' />
+<style id='custom-style-inline-css' type='text/css'>
+header, .widget_tag_cloud a:hover, .sticky-img, #primary-menu li ul li {background-color: ;} a:hover, #primary-menu li:hover a {color: ;}
+</style>
+<script type='text/javascript' src='http://www.snowlinux.de/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
+<script type='text/javascript' src='http://www.snowlinux.de/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.snowlinux.de/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.snowlinux.de/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.1" />
+<!--[if lt IE 9]><script src="http://www.snowlinux.de/wp-content/themes/franklin/assets/js/html5shiv.js"></script><![endif]--></head>
+<body class="home blog">
+<header role="banner">
+	<div id="top-bar" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div id="site-description" class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+					<p></p>
+				</div>	
+				<div class="col-sm-12 col-md-12 col-lg-6">			
+					<form id="header-search" role="search" method="get" class="search-form form-inline" action="http://www.snowlinux.de/">									
+						<input type="search" class="search-field" value="" name="s" />				
+						<button type="submit"><span class="glyphicon glyphicon-search"></span></button>
+					</form>					
+										
+				</div>		
+			</div>
+		</div>
+	</div>
+	<div id="bot-bar" class="container">
+		<div class="row">
+			<div id="logo" class="col-md-12 col-lg-3">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>	
+									<a href="http://www.snowlinux.de/" rel="home">Snowlinux</a>
+					
+			</div>
+			<div id="primary-menu" class="col-md-12 col-lg-9" role="navigation">
+				<div class="collapse navbar-collapse">
+									</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div id="content" class="container"><div class="row" role="main" >
+	<div class="col-md-8">
+		<article id="post-6" class="post-6 post type-post status-publish format-standard hentry category-linux-fuer-dummies tag-linux tag-mobile-spiele">
+				
+	<h3 class="post-title"><a href="http://www.snowlinux.de/was-und-fuer-wen-ist-eigentlich-linux/" rel="bookmark">Was und für wen ist eigentlich Linux?</a></h3><p><img class="alignright" src="http://www.snowlinux.de/wp-content/uploads/2015/01/Linux-e1421078567334.jpg" alt="Linux" width="250" height="278" />Ich stelle immer wieder fest, dass die Zeit auch bei mir seine Spuren hinterlässt. Ich dachte eigentlich immer, dass ich ein moderner Mensch, mit einem gutem Allgemeinwissen bin. Recherchen gehen bei mir nicht Spurlos vorbei. Von allem was ich über die Verschiedenen Themen gelesen oder gar gelernt habe, blieb immer etwas hängen. Ich bin wahrlich kein sehr technischer Mensch. Ich benutze meine Computer zum schreiben, das Internet nach Informationen durchforschen, Mails und alles was ein Normalverbraucher eben so mit seinem Computer macht. Wenn es aber ins Detail geht oder etwas nicht mit der Technik oder mit der Software stimmt muss ich leider passen. Das ist Mathematik, die nicht für mein Gehirn gemacht ist.</p>
+<p>Ich kenne die eingängigen Betriebssysteme eines Computers. Windows von Microsoft oder iOS sind mir natürlich ein Begriff. Aber als ich vor nicht all zu langer Zeit eine Recherche über mobile Spiele für Android und iOS Geräte begann, traf ich auch immer wieder auf das Wort Linux. Für mich hat das Wort irgendwie etwas von „SPUNK“&#8230;wissen Sie was ein Spunk ist? Die Menschen, die in meiner Zeit aufwuchsen, kennen sicher noch die Pippi Langstrumpf Filme und Bücher von Astrid Lindgren. In einem der Filme erfand Pippi das Wort Spunk, was ein irgendetwas darstellte. Man konnte dieses Wort für alles einsetzen, was man nicht kannte. Zum Beispiel: „Was ist das? Oh, ähm, (symbolisiert das man es nicht weiß) das ist sicher ein Spunk!“</p>
+<p>Meine Reaktion, als ich das erste mal von Linux hörte war also: Linux = Spunk. Ganz so einfach ist das leider nicht. Ich habe mich schlau gemacht und ob das für jedermann von Nöten ist bleibt auch dahingestellt.</p>
+<p>Was ist also Linux? Achtung! Jetzt wird es sehr Technisch. Linux ist im wesentlichen ein Betriebssystem-Kernel. Ok, das Wort Betriebssystem ist mir bekannt. Aber was ist ein Kernel? Das ist der Kern eines jeden Betriebssystems. In ihm sind alle Prozesse und Daten verankert. Auf diesen Kern bauen alle anderen Bestandteile von Softwares auf. Man kann sich das besser vorstellen, wenn man unsere Erdkugel nimmt und sie bildlich teilt. Man findet in der Mitte den Kern und drum herum die verschiedenen Schichten. Die Hauptaufgaben des Kernels sind zum Beispiel Aufgaben parallel zu verarbeiten und offen für Anwendungen und Erweiterungen zu sein. Linux ist also so ein Kernel. Linux wurde Anfang der 90’er von Linus Torvalds, einem in Finnland geborenen Entwickler, auf den Markt gebracht. Das Logo von Linux ist ein sitzender Pinguin.</p>
+<p>Wie ich in meinen Recherchen über mobiles Spielen im Internet oder mit Apps auf den entsprechenden Geräten erfahren habe ist Linux fast überall vertreten. Es ist als würde man in ein beliebiges Geschäft gehen und nach Coca Cola suchen. Die sind auch fast überall vertreten. Wie aber bei den meisten anderen Produkten auf der Welt auch, kommt es aber auf die Mischung an. Linux, beziehungsweise der Kernel, kann alleine nichts. Es kommt auf die Zusammenarbeit mit anderen Programmen, wie zum Beispiel das Betriebsprogramm an. Linux hat einen umfassenden Arbeitsbereich und wird von den verschiedensten Geräten und Endnutzern benutzt. Man findet Linux sowie in Rechnern, Mobiltelefonen usw. Genutzt wird Linux von privaten Menschen und auch von Organisationen. Deutschlands größte Spiele und Informationsseite zum Beispiel <a href="https://www.dgfev.de/" target="_blank">DGFEV Online-Casino</a> für Deutsch-Spieler arbeitet nur mit Linux und die bekannteste Organisation ist wohl das US amerikanische Verteidigungsministerium.</p>
+<p>Ich bin mir jetzt nicht wirklich sicher, ob ich etwas mit diesem Artikel zu Ihrem Gemeinwissen bei getragen habe, aber ich für meinen Teil habe festgestellt, das ich mich nun doch etwas schlauer fühle. Und das wichtigste dabei ist, dass der Spunk nun kein Spunk mehr ist, sondern Linux heißt.</p>
+	
+		<div class="post-meta clearfix post-meta-list">
+		<p class="author-date">
+			<span class="glyphicon glyphicon-user"></span> Ingo Grosse 
+			<span class="glyphicon glyphicon-calendar"></span> Januar 13, 2015		
+		</p>
+		<p class="post-tags"><span class="glyphicon glyphicon-tags"></span><a href="http://www.snowlinux.de/tag/linux/">Linux</a> <span class="slash"> / </span><a href="http://www.snowlinux.de/tag/mobile-spiele/">mobile Spiele</a> <span class="slash"> / </span></p>	
+			
+	</div>	
+		
+</article>
+<hr class="post-divider">		<div class="page-links"></div>	</div>
+	<div id="primary-sidebar" class="col-md-4">
+	<aside id="search-2" class="widget widget_search"><hr><form role="search" method="get" id="searchform" class="searchform" action="http://www.snowlinux.de/">
+				<div>
+					<label class="screen-reader-text" for="s">Suche nach:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Suche" />
+				</div>
+			</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries"><hr>		<h4>Letzte Beiträge</h4>		<ul>
+					<li>
+				<a href="http://www.snowlinux.de/was-und-fuer-wen-ist-eigentlich-linux/">Was und für wen ist eigentlich Linux?</a>
+						</li>
+				</ul>
+		</aside><aside id="categories-2" class="widget widget_categories"><hr><h4>Kategorien</h4>		<ul>
+	<li class="cat-item cat-item-2"><a href="http://www.snowlinux.de/kategorie/linux-fuer-dummies/" >Linux für Dummies</a>
+</li>
+		</ul>
+</aside><aside id="archives-2" class="widget widget_archive"><hr><h4>Archive</h4>		<ul>
+	<li><a href='http://www.snowlinux.de/2015/01/'>Januar 2015</a></li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><hr><h4>Meta</h4>			<ul>
+			
+			<li><a href="http://www.snowlinux.de/feed/">Beitrags-Feed (<abbr title="Really Simple Syndication">RSS</abbr>)</a></li>
+			
+			</ul>
+</aside><aside id="tag_cloud-2" class="widget widget_tag_cloud"><hr><h4>Schlagwörter</h4><div class="tagcloud"><a href='http://www.snowlinux.de/tag/linux/' class='tag-link-4' title='1 Thema' style='font-size: 8pt;'>Linux</a>
+<a href='http://www.snowlinux.de/tag/mobile-spiele/' class='tag-link-3' title='1 Thema' style='font-size: 8pt;'>mobile Spiele</a></div>
+</aside></div></div>
+</div>
+<footer>
+		
+	<div id="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div id="footer-meta" class="col-md-9">
+					<p>© Copyright 2015 - Snowlinux</p>
+									</div>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+<script type='text/javascript' src='http://www.snowlinux.de/wp-content/themes/franklin/assets/js/bootstrap.min.js?ver=3.1.1'></script>
+<script type='text/javascript' src='http://www.snowlinux.de/wp-content/themes/franklin/assets/js/franklin.js?ver=1.0'></script>
+   
+</body>
+</html>				
